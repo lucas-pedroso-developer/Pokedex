@@ -18,21 +18,29 @@ class MainViewController: UIViewController {
     
     var pokemons: Pokemons?
     let service = PokedexService()
-    
+    var api_url = "https://pokeapi.co/api/v2/pokemon"
+        
     @IBOutlet weak var collectionView: UICollectionView!
                     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getPokemons()
+        getPokemons(url: api_url)
     }
     
-    func getPokemons() {
-        service.getAllPokemons { result in
-            if result != nil {
-                self.pokemons = result
-                self.collectionView.reloadData()
-            } else {
+    func getPokemons(url: String) {
+        //service.getAllPokemons { result in
+        service.getAllPokemons(url: url) { result in
+            switch result {
+            case .success(let data):
+                if data != nil {
+                    self.pokemons = data
+                    self.collectionView.reloadData()
+                } else {
+                    print("Não foi retornado nenhum Pokemon")
+                }
+            case .failure(let error):
+                print(error)
                 print("erro")
             }
         }
@@ -44,7 +52,7 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if self.pokemons != nil {
+        if self.pokemons?.results != nil {
             return self.pokemons?.results!.count ?? 0
         }
         return 0
@@ -75,4 +83,13 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         let collectionViewSize = collectionView.frame.size.width - padding
         return CGSize(width: collectionViewSize/3, height: collectionViewSize/3)
     }
+    
+    /*func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == itemList.count - 1 && itemList.count < totalCount{
+            pageCount += 1
+            // Call API here
+            print("teste")
+        }
+    }*/
+    
 }

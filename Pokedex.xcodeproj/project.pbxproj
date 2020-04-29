@@ -19,6 +19,7 @@
 		6AB489DC2458A16C00A4643D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6AB489DB2458A16C00A4643D /* Alamofire */; };
 		6AB489DE2458B8A600A4643D /* Pokemons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB489DD2458B8A600A4643D /* Pokemons.swift */; };
 		6AB489E22458B9D000A4643D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB489E12458B9D000A4643D /* Model.swift */; };
+		6AB489F92459CCC900A4643D /* HttpError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB489F82459CCC900A4643D /* HttpError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		6AB489D82458A00000A4643D /* PokedexService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexService.swift; sourceTree = "<group>"; };
 		6AB489DD2458B8A600A4643D /* Pokemons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemons.swift; sourceTree = "<group>"; };
 		6AB489E12458B9D000A4643D /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		6AB489F82459CCC900A4643D /* HttpError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				6AB489D82458A00000A4643D /* PokedexService.swift */,
+				6AB489F82459CCC900A4643D /* HttpError.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				6AB489DE2458B8A600A4643D /* Pokemons.swift in Sources */,
 				6AB489B42458737C00A4643D /* MainViewController.swift in Sources */,
 				6AB489B02458737C00A4643D /* AppDelegate.swift in Sources */,
+				6AB489F92459CCC900A4643D /* HttpError.swift in Sources */,
 				6AB489D92458A00000A4643D /* PokedexService.swift in Sources */,
 				6AB489B22458737C00A4643D /* SceneDelegate.swift in Sources */,
 				6AB489E22458B9D000A4643D /* Model.swift in Sources */,
