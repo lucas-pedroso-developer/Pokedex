@@ -28,33 +28,56 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rl8-Fg-ICA">
                                 <rect key="frame" x="19" y="108" width="337.5" height="539"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bVB-AI-a8z">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="IvS-Ll-Mo4">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="iyn-aG-pqM" customClass="MyCollectionViewCell" customModule="Pokedex" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                    <collectionViewCell autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="iyn-aG-pqM" customClass="MyCollectionViewCell" customModule="Pokedex" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2In-Me-iIs">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <collectionViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2In-Me-iIs">
+                                            <rect key="frame" x="0.0" y="0.0" width="110" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sf9-5Z-rVP">
-                                                    <rect key="frame" x="43" y="53.5" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jeB-XN-gOQ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="128"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="psyduck" translatesAutoresizingMaskIntoConstraints="NO" id="2cC-Zy-ceG">
+                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="107"/>
+                                                        </imageView>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Psyduck" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sf9-5Z-rVP">
+                                                            <rect key="frame" x="0.0" y="109" width="110" height="19"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstItem="2cC-Zy-ceG" firstAttribute="top" secondItem="jeB-XN-gOQ" secondAttribute="top" id="58y-49-ksZ"/>
+                                                        <constraint firstItem="sf9-5Z-rVP" firstAttribute="centerX" secondItem="jeB-XN-gOQ" secondAttribute="centerX" id="I7B-bc-CnB"/>
+                                                        <constraint firstAttribute="trailing" secondItem="2cC-Zy-ceG" secondAttribute="trailing" id="o7c-tS-329"/>
+                                                        <constraint firstItem="2cC-Zy-ceG" firstAttribute="leading" secondItem="jeB-XN-gOQ" secondAttribute="leading" id="pn8-XP-CEc"/>
+                                                        <constraint firstItem="sf9-5Z-rVP" firstAttribute="height" secondItem="jeB-XN-gOQ" secondAttribute="height" multiplier="0.15" id="uH6-CS-H5u"/>
+                                                        <constraint firstAttribute="bottom" secondItem="sf9-5Z-rVP" secondAttribute="bottom" id="vbo-pN-D3v"/>
+                                                        <constraint firstItem="sf9-5Z-rVP" firstAttribute="width" secondItem="jeB-XN-gOQ" secondAttribute="width" id="web-BL-7ic"/>
+                                                        <constraint firstItem="sf9-5Z-rVP" firstAttribute="top" secondItem="2cC-Zy-ceG" secondAttribute="bottom" constant="2" id="yCz-zK-9e6"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="sf9-5Z-rVP" firstAttribute="centerY" secondItem="2In-Me-iIs" secondAttribute="centerY" id="tkt-gl-5B3"/>
-                                                <constraint firstItem="sf9-5Z-rVP" firstAttribute="centerX" secondItem="2In-Me-iIs" secondAttribute="centerX" id="xtc-uP-8Fs"/>
+                                                <constraint firstItem="jeB-XN-gOQ" firstAttribute="height" secondItem="2In-Me-iIs" secondAttribute="height" id="OtW-O5-96G"/>
+                                                <constraint firstItem="jeB-XN-gOQ" firstAttribute="centerY" secondItem="2In-Me-iIs" secondAttribute="centerY" id="Sc6-Tv-i4R"/>
+                                                <constraint firstItem="jeB-XN-gOQ" firstAttribute="width" secondItem="2In-Me-iIs" secondAttribute="width" id="qcz-jQ-0JM"/>
+                                                <constraint firstItem="jeB-XN-gOQ" firstAttribute="centerX" secondItem="2In-Me-iIs" secondAttribute="centerX" id="wWc-dg-QzW"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <size key="customSize" width="110" height="128"/>
                                         <connections>
+                                            <outlet property="imageView" destination="2cC-Zy-ceG" id="GaB-vM-No7"/>
                                             <outlet property="myLabel" destination="sf9-5Z-rVP" id="8xd-Gh-Nuf"/>
                                         </connections>
                                     </collectionViewCell>
@@ -93,4 +116,7 @@
             <point key="canvasLocation" x="132" y="138.98050974512745"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="psyduck" width="920" height="898"/>
+    </resources>
 </document>
