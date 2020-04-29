@@ -19,7 +19,7 @@ class MainViewController: UIViewController {
     var pokemons: Pokemons?
     let service = PokedexService()
     var api_url = "https://pokeapi.co/api/v2/pokemon"
-        
+    var pokemonArray = [Results?]()
     @IBOutlet weak var collectionView: UICollectionView!
                     
     override func viewDidLoad() {
@@ -27,14 +27,16 @@ class MainViewController: UIViewController {
         
         getPokemons(url: api_url)
     }
-    
+        
     func getPokemons(url: String) {
-        //service.getAllPokemons { result in
         service.getAllPokemons(url: url) { result in
             switch result {
             case .success(let data):
+                print(data)
                 if data != nil {
                     self.pokemons = data
+                    self.pokemonArray.append(contentsOf: (data?.results)!)
+                    print(self.pokemonArray)
                     self.collectionView.reloadData()
                 } else {
                     print("Não foi retornado nenhum Pokemon")
@@ -53,18 +55,30 @@ class MainViewController: UIViewController {
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if self.pokemons?.results != nil {
-            return self.pokemons?.results!.count ?? 0
+            return self.pokemonArray.count ?? 0
         }
         return 0
     }
-                
+        
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let padding: CGFloat =  50
+        let collectionViewSize = collectionView.frame.size.width - padding
+        return CGSize(width: collectionViewSize/3, height: collectionViewSize/3)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.item == self.pokemonArray.count - 4 && self.pokemonArray.count < (self.pokemons?.count)! {
+            self.getPokemons(url: (self.pokemons?.next!)!)
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "cell", for: indexPath as IndexPath) as! MyCollectionViewCell
                         
-        cell.myLabel.text = self.pokemons?.results?[indexPath.item].name
+        cell.myLabel.text = self.pokemonArray[indexPath.item]?.name
                        
-        let url = (self.pokemons?.results?[indexPath.item].url)!
+        let url = (self.pokemonArray[indexPath.item]?.url)!
         let id = Int(url.split(separator: "/").last!)!
         let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!
         let data = try? Data(contentsOf: imageUrl)
@@ -77,19 +91,5 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
 
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let padding: CGFloat =  50
-        let collectionViewSize = collectionView.frame.size.width - padding
-        return CGSize(width: collectionViewSize/3, height: collectionViewSize/3)
-    }
-    
-    /*func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == itemList.count - 1 && itemList.count < totalCount{
-            pageCount += 1
-            // Call API here
-            print("teste")
-        }
-    }*/
     
 }

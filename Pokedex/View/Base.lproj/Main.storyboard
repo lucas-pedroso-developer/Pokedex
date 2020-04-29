@@ -46,10 +46,11 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="110" height="128"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="psyduck" translatesAutoresizingMaskIntoConstraints="NO" id="2cC-Zy-ceG">
-                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="107"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="105"/>
                                                         </imageView>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Psyduck" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sf9-5Z-rVP">
-                                                            <rect key="frame" x="0.0" y="109" width="110" height="19"/>
+                                                            <rect key="frame" x="0.0" y="107" width="110" height="19"/>
+                                                            <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -62,7 +63,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="2cC-Zy-ceG" secondAttribute="trailing" id="o7c-tS-329"/>
                                                         <constraint firstItem="2cC-Zy-ceG" firstAttribute="leading" secondItem="jeB-XN-gOQ" secondAttribute="leading" id="pn8-XP-CEc"/>
                                                         <constraint firstItem="sf9-5Z-rVP" firstAttribute="height" secondItem="jeB-XN-gOQ" secondAttribute="height" multiplier="0.15" id="uH6-CS-H5u"/>
-                                                        <constraint firstAttribute="bottom" secondItem="sf9-5Z-rVP" secondAttribute="bottom" id="vbo-pN-D3v"/>
+                                                        <constraint firstAttribute="bottom" secondItem="sf9-5Z-rVP" secondAttribute="bottom" constant="2" id="vbo-pN-D3v"/>
                                                         <constraint firstItem="sf9-5Z-rVP" firstAttribute="width" secondItem="jeB-XN-gOQ" secondAttribute="width" id="web-BL-7ic"/>
                                                         <constraint firstItem="sf9-5Z-rVP" firstAttribute="top" secondItem="2cC-Zy-ceG" secondAttribute="bottom" constant="2" id="yCz-zK-9e6"/>
                                                     </constraints>
