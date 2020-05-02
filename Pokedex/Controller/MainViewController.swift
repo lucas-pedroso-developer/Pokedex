@@ -92,4 +92,14 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let newViewController = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        
+        let url = (self.pokemonArray[indexPath.item]?.url)!
+        let id = Int(url.split(separator: "/").last!)!
+        
+        newViewController.id = id
+        present(newViewController, animated: true, completion: nil)
+    }
+    
 }

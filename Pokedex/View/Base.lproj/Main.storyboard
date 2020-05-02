@@ -11,7 +11,7 @@
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="BYZ-38-t0r" customClass="MainViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -124,10 +124,10 @@
             </objects>
             <point key="canvasLocation" x="132" y="138.98050974512745"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="2Fu-l7-Pxb">
             <objects>
-                <viewController id="R7t-bC-8Uf" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="R7t-bC-8Uf" customClass="DetailViewController" customModule="Pokedex" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WX0-OK-TEB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -279,6 +279,19 @@
                         <viewLayoutGuide key="safeArea" id="1zv-5R-u4o"/>
                     </view>
                     <size key="freeformSize" width="375" height="1000"/>
+                    <connections>
+                        <outlet property="abilityLabel" destination="UqP-n4-GtL" id="Lc0-Ww-Ana"/>
+                        <outlet property="atackLabel" destination="0rQ-iK-kgd" id="Ups-PA-SRs"/>
+                        <outlet property="defenseLabel" destination="rFn-K4-DrB" id="pgY-YD-MTt"/>
+                        <outlet property="hpLabel" destination="PzG-9K-a0n" id="YGq-4M-k9v"/>
+                        <outlet property="navbar" destination="rfD-2i-UEs" id="1zq-nV-Ta3"/>
+                        <outlet property="pokemonIdLabel" destination="2vB-DV-Gis" id="EfI-Hp-Zpp"/>
+                        <outlet property="pokemonImageView" destination="9xj-KR-8XY" id="sgD-6Z-CwS"/>
+                        <outlet property="specialAtackLabel" destination="8WX-gX-keh" id="md4-4B-wfF"/>
+                        <outlet property="specialDefenseLabel" destination="0lf-Jn-hkr" id="pCq-jR-k4A"/>
+                        <outlet property="speedLabel" destination="i2u-sW-81s" id="Juy-nj-khz"/>
+                        <outlet property="typeLabel" destination="e8e-h1-3Xv" id="WDQ-pl-HeM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCU-sk-H8W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
