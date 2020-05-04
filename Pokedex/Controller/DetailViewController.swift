@@ -43,7 +43,11 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var dataView: UIView!
     @IBOutlet weak var statusView: UIView!
     
-        
+    @IBOutlet weak var typeColorBackgroundView: UIView!
+    
+    @IBOutlet weak var backNavBarButton: UIBarButtonItem!
+    @IBOutlet weak var favoriteNavBarButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -58,6 +62,9 @@ class DetailViewController: UIViewController {
         self.whiteBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         
+        /*self.pokemonIdLabel.layer.borderColor = UIColor.white.cgColor
+        self.pokemonIdLabel.layer.borderWidth = 1
+        self.pokemonIdLabel.layer.cornerRadius = 8*/
         
         getPokemon(url: "https://pokeapi.co/api/v2/pokemon/\(self.id)")
 
@@ -92,7 +99,7 @@ class DetailViewController: UIViewController {
     
     private func setPokemonData() {
         if let id = self.pokemon?.id {
-            self.pokemonIdLabel.text = "\(id)"
+            self.pokemonIdLabel.text = "# \(id)"
         }
         
         if let height = self.pokemon?.height {
@@ -180,7 +187,7 @@ class DetailViewController: UIViewController {
 }
 
 class TypeCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var typeButton: UIButton!
 }
 
 extension DetailViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -193,29 +200,19 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
             
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "cell", for: indexPath as IndexPath) as! TypeCollectionViewCell
-        cell.typeLabel.text = self.types?[indexPath.item].type?.name
-        cell.typeLabel.layer.cornerRadius = collectionView.contentSize.width*11/100
+        cell.typeButton.setTitle(self.types?[indexPath.item].type?.name, for: .normal)
+                
+        self.typeColorBackgroundView.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
+        
+        cell.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
+        cell.layer.borderColor = UIColor.white.cgColor
+        cell.layer.borderWidth = 1
+        cell.layer.cornerRadius = collectionView.contentSize.width*11.5/100
+        
+        backNavBarButton.tintColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
+        
+        favoriteNavBarButton.tintColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
+        
         return cell
     }
 }
-
-/*
-Normal Type: A8A77A
-Fire Type:  EE8130
-Water Type:  6390F0
-Electric Type:  F7D02C
-Grass Type:  7AC74C
-Ice Type:  96D9D6
-Fighting Type:  C22E28
-Poison Type:  A33EA1
-Ground Type:  E2BF65
-Flying Type:  A98FF3
-Psychic Type:  F95587
-Bug Type:  A6B91A
-Rock Type:  B6A136
-Ghost Type:  735797
-Dragon Type:  6F35FC
-Dark Type:  705746
-Steel Type:  B7B7CE
-Fairy Type:  D685AD
-*/
