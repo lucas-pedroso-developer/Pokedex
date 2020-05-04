@@ -6,6 +6,7 @@
 //  Copyright © 2020 Lucas. All rights reserved.
 //
 
+
 import UIKit
 
 class MyCollectionViewCell: UICollectionViewCell {
@@ -14,17 +15,25 @@ class MyCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
 }
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UISearchResultsUpdating {
+    
+    
     
     var pokemons: Pokemons?
-    let service = PokedexService()
     var api_url = "https://pokeapi.co/api/v2/pokemon"
     var pokemonArray = [Results?]()
+    var pokemonArrayFiltered = [Results?]()
+    var searchController: UISearchController!
+    var searchActive : Bool = false
+    
+    let service = PokedexService()
+            
     @IBOutlet weak var collectionView: UICollectionView!
-                    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
+                
         getPokemons(url: api_url)
     }
         
@@ -32,11 +41,9 @@ class MainViewController: UIViewController {
         service.getAllPokemons(url: url) { result in
             switch result {
             case .success(let data):
-                print(data)
                 if data != nil {
                     self.pokemons = data
                     self.pokemonArray.append(contentsOf: (data?.results)!)
-                    print(self.pokemonArray)
                     self.collectionView.reloadData()
                 } else {
                     print("Não foi retornado nenhum Pokemon")
@@ -48,14 +55,25 @@ class MainViewController: UIViewController {
         }
     }
     
-    
+       
+    @IBAction func teste(_ sender: Any) {
+        
+    }
+       
+        
+}
 
+class SearchBarView: UICollectionReusableView {
+    @IBOutlet weak var searchBar: UISearchBar!
 }
 
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if self.pokemons?.results != nil {
-            return self.pokemonArray.count ?? 0
+        
+        if(searchActive) {
+            return self.pokemonArrayFiltered.count
+        } else if self.pokemons?.results != nil {
+            return self.pokemonArray.count
         }
         return 0
     }
@@ -65,10 +83,12 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         let collectionViewSize = collectionView.frame.size.width - padding
         return CGSize(width: collectionViewSize/3, height: collectionViewSize/3)
     }
-    
+        
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.item == self.pokemonArray.count - 4 && self.pokemonArray.count < (self.pokemons?.count)! {
-            self.getPokemons(url: (self.pokemons?.next!)!)
+        if !searchActive {
+            if indexPath.item == self.pokemonArray.count - 4 && self.pokemonArray.count < (self.pokemons?.count)! {
+                self.getPokemons(url: (self.pokemons?.next!)!)
+            }
         }
     }
     
@@ -76,13 +96,25 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "cell", for: indexPath as IndexPath) as! MyCollectionViewCell
                         
-        cell.myLabel.text = self.pokemonArray[indexPath.item]?.name
-                       
-        let url = (self.pokemonArray[indexPath.item]?.url)!
-        let id = Int(url.split(separator: "/").last!)!
-        let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!
-        let data = try? Data(contentsOf: imageUrl)
-        cell.imageView.image = UIImage(data: data!)
+        if searchActive {
+            cell.myLabel.text = self.pokemonArrayFiltered[indexPath.item]?.name
+            let url = (self.pokemonArrayFiltered[indexPath.item]?.url)!
+            let id = Int(url.split(separator: "/").last!)!
+            let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!
+            let data = try? Data(contentsOf: imageUrl)
+            cell.imageView.image = UIImage(data: data!)
+        } else {
+            if let name = self.pokemonArray[indexPath.item]?.name {
+                cell.myLabel.text = name
+            }
+                                    
+            if let url = self.pokemonArray[indexPath.item]?.url {
+                let id = Int(url.split(separator: "/").last!)!
+                let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!
+                let data = try? Data(contentsOf: imageUrl)
+                cell.imageView.image = UIImage(data: data!)
+            }
+        }
                         
         cell.backgroundColor = UIColor.cyan
         cell.layer.borderColor = UIColor.black.cgColor
@@ -95,11 +127,45 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let newViewController = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         
-        let url = (self.pokemonArray[indexPath.item]?.url)!
-        let id = Int(url.split(separator: "/").last!)!
+        if searchActive {
+            let url = (self.pokemonArrayFiltered[indexPath.item]?.url)!
+            let id = Int(url.split(separator: "/").last!)!
+            newViewController.id = id
+        } else {
+            let url = (self.pokemonArray[indexPath.item]?.url)!
+            let id = Int(url.split(separator: "/").last!)!
+            newViewController.id = id
+        }
         
-        newViewController.id = id
         present(newViewController, animated: true, completion: nil)
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let searchView: UICollectionReusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchBar", for: indexPath)
+        return searchView
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.pokemonArrayFiltered.removeAll()
+        for item in self.pokemonArray {
+            if let name = item?.name!.lowercased() {
+                print(name)
+                if ((name.contains(searchBar.text!.lowercased()))) {
+                    self.pokemonArrayFiltered.append(item)
+                }
+            }
+        }
+            
+        if (searchBar.text!.isEmpty) {
+            self.pokemonArrayFiltered = self.pokemonArray
+        }
+        
+        searchActive = true
+        
+        self.collectionView.reloadData()
+    }
+}
+
+extension MainViewController: UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {}
 }
