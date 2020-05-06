@@ -11,6 +11,7 @@ import Foundation
 
 public struct PokemonDetail : Model {
     let id : Int?
+    let name : String?
     let height : Int?
     let weight : Int?
     let stats : [Stats]?
@@ -22,6 +23,7 @@ public struct PokemonDetail : Model {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decodeIfPresent(Int.self, forKey: .id)
+        name = try values.decodeIfPresent(String.self, forKey: .name)
         height = try values.decodeIfPresent(Int.self, forKey: .height)
         weight = try values.decodeIfPresent(Int.self, forKey: .weight)
         stats = try values.decodeIfPresent([Stats].self, forKey: .stats)

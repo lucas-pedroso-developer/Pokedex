@@ -10,14 +10,11 @@
 import UIKit
 
 class MyCollectionViewCell: UICollectionViewCell {
-
     @IBOutlet weak var myLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
 }
 
 class MainViewController: UIViewController, UISearchResultsUpdating {
-    
-    
     
     var pokemons: Pokemons?
     var api_url = "https://pokeapi.co/api/v2/pokemon"
@@ -33,7 +30,6 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-                
         getPokemons(url: api_url)
     }
         
@@ -54,12 +50,7 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
             }
         }
     }
-    
-       
-    @IBAction func teste(_ sender: Any) {
-        
-    }
-       
+                  
         
 }
 
@@ -136,6 +127,9 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             let id = Int(url.split(separator: "/").last!)!
             newViewController.id = id
         }
+        
+        newViewController.modalPresentationStyle = UIModalPresentationStyle.currentContext
+        newViewController.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
         
         present(newViewController, animated: true, completion: nil)
     }

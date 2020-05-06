@@ -75,4 +75,101 @@ public class PokedexService {
             }
         }
     }
+    
+    func getPokemonSpecie(url: String, completion: @escaping (Result<SpecieDetail?, HttpError>) -> ()) {
+        AF.request(url, method: .get).responseJSON { response in
+            if let status = response.response?.statusCode {
+                switch(status){
+                    case 204:
+                        completion(.success(nil))
+                    case 200...299:
+                        let decoder = JSONDecoder()
+                        let data = response.data
+                        do {
+                            if let dataFromJSON = data {
+                                let result = try decoder.decode(SpecieDetail.self, from: dataFromJSON)
+                                completion(.success(result))
+                            }
+                        } catch {
+                            completion(.failure(.noConnectivity))
+                        }
+                    case 401:
+                        completion(.failure(.unauthorized))
+                    case 403:
+                        completion(.failure(.forbidden))
+                    case 400...499:
+                        completion(.failure(.badRequest))
+                    case 500...599:
+                        completion(.failure(.serverError))
+                    default:
+                        completion(.failure(.noConnectivity))
+                }
+            }
+        }
+    }
+    
+    func getPokemonEvolution(url: String, completion: @escaping (Result<EvolutionChainDetail?, HttpError>) -> ()) {
+        AF.request(url, method: .get).responseJSON { response in
+            if let status = response.response?.statusCode {
+                switch(status){
+                    case 204:
+                        completion(.success(nil))
+                    case 200...299:
+                        let decoder = JSONDecoder()
+                        let data = response.data
+                        do {
+                            if let dataFromJSON = data {
+                                let result = try decoder.decode(EvolutionChainDetail.self, from: dataFromJSON)
+                                completion(.success(result))
+                            }
+                        } catch {
+                            completion(.failure(.noConnectivity))
+                        }
+                    case 401:
+                        completion(.failure(.unauthorized))
+                    case 403:
+                        completion(.failure(.forbidden))
+                    case 400...499:
+                        completion(.failure(.badRequest))
+                    case 500...599:
+                        completion(.failure(.serverError))
+                    default:
+                        completion(.failure(.noConnectivity))
+                }
+            }
+        }
+    }
+    
+    func getPokemonAbilities(url: String, completion: @escaping (Result<AbilitiesDetail?, HttpError>) -> ()) {
+        AF.request(url, method: .get).responseJSON { response in
+            if let status = response.response?.statusCode {
+                switch(status){
+                    case 204:
+                        completion(.success(nil))
+                    case 200...299:
+                        let decoder = JSONDecoder()
+                        let data = response.data
+                        do {
+                            if let dataFromJSON = data {
+                                let result = try decoder.decode(AbilitiesDetail.self, from: dataFromJSON)
+                                completion(.success(result))
+                            }
+                        } catch {
+                            completion(.failure(.noConnectivity))
+                        }
+                    case 401:
+                        completion(.failure(.unauthorized))
+                    case 403:
+                        completion(.failure(.forbidden))
+                    case 400...499:
+                        completion(.failure(.badRequest))
+                    case 500...599:
+                        completion(.failure(.serverError))
+                    default:
+                        completion(.failure(.noConnectivity))
+                }
+            }
+        }
+    }
+    
 }
