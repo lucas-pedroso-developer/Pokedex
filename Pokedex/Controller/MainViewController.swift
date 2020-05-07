@@ -14,8 +14,8 @@ class MyCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
 }
 
-class MainViewController: UIViewController, UISearchResultsUpdating {
-    
+class MainViewController: UIViewController, UISearchResultsUpdating {    
+        
     var pokemons: Pokemons?
     var api_url = "https://pokeapi.co/api/v2/pokemon"
     var pokemonArray = [Results?]()
@@ -29,11 +29,6 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        //"%02d"
-        var myInt = 12
-        
-        print(String(format: "%03d", myInt))
-        
         getPokemons(url: api_url)
     }
         
@@ -90,12 +85,10 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "cell", for: indexPath as IndexPath) as! MyCollectionViewCell
-        //https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png
         if searchActive {
             cell.myLabel.text = self.pokemonArrayFiltered[indexPath.item]?.name
             let url = (self.pokemonArrayFiltered[indexPath.item]?.url)!
             let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)
-            /*let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!*/
             let imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
             let data = try? Data(contentsOf: imageUrl)
             cell.imageView.image = UIImage(data: data!)
@@ -105,9 +98,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             }
                                     
             if let url = self.pokemonArray[indexPath.item]?.url {
-                //let id = Int(url.split(separator: "/").last!)!
-                let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)
-                /*let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!*/
+                let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)                
                 let imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
                 let data = try? Data(contentsOf: imageUrl)
                 cell.imageView.image = UIImage(data: data!)
@@ -135,8 +126,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             newViewController.id = id
         }
         
-        newViewController.modalPresentationStyle = UIModalPresentationStyle.currentContext
-        newViewController.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
+        newViewController.transitioningDelegate = self
         
         present(newViewController, animated: true, completion: nil)
     }
@@ -169,4 +159,49 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 extension MainViewController: UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {}
+}
+
+extension MainViewController:  UIViewControllerTransitioningDelegate {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
+    }
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return self
+    }
+}
+
+extension MainViewController: UIViewControllerAnimatedTransitioning {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return 1.0
+    }
+    
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let fromView = transitionContext.viewController(forKey: .from)!.view!
+        let toView = transitionContext.viewController(forKey: .to)!.view!
+
+        let isPresentingDrawer = fromView == view
+        let drawerView = isPresentingDrawer ? toView : fromView
+        if isPresentingDrawer {
+            transitionContext.containerView.addSubview(drawerView)
+        }
+                
+        let drawerSize = CGSize(
+            width: UIScreen.main.bounds.size.width,
+            height: UIScreen.main.bounds.size.height)
+
+        let offScreenDrawerFrame = CGRect(origin: CGPoint(x: drawerSize.width * -1, y:0), size: drawerSize)
+        let onScreenDrawerFrame = CGRect(origin: .zero, size: drawerSize)
+        drawerView.frame = isPresentingDrawer ? offScreenDrawerFrame : onScreenDrawerFrame
+        let animationDuration = transitionDuration(using: transitionContext)
+        
+        UIView.animate(withDuration: animationDuration, animations: {
+            drawerView.frame = isPresentingDrawer ? onScreenDrawerFrame : offScreenDrawerFrame
+        }, completion: { (success) in
+            if !isPresentingDrawer {
+                drawerView.removeFromSuperview()
+            }
+            transitionContext.completeTransition(success)
+        })
+    }
 }

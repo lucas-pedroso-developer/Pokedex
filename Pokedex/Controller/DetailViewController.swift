@@ -141,19 +141,12 @@ class DetailViewController: UIViewController {
                         for flavor in flavor_text_entries {
                             if (flavor.language?.name?.elementsEqual("en"))! && ((flavor.language?.name?.elementsEqual("alpha-sapphire")) != nil) {
                                 if let text = flavor.flavor_text {
-                                    //self.descriptionLabel.text = flavor.flavor_text
                                     self.descriptionLabel.text = flavor.flavor_text?.replacingOccurrences(of: "\n", with: " ")
                                 }
                             }
                         }
                     }
-                        
-                    /*print(self.specie?.evolution_chain?.url)
-                    if let url = self.specie?.evolution_chain?.url {
-                        self.getPokemonEvolution(url: url)
-                    }*/
-                    
-                    print(self.specie?.evolution_chain?.url)
+                                        
                     if let url = self.specie?.evolution_chain?.url {
                         self.getPokemonEvolution(url: url)
                     }
@@ -219,20 +212,7 @@ class DetailViewController: UIViewController {
                             }
                         }
                     }*/
-                    
-                    
-                    
-                    var tes = true
-                    var counter = 0
-                    
-                    /*while tes {
-                        self.evolutionSpecieArray.append(((self.evolutionChain?.chain?.evolves_to?[counter])?.species as! EvolutionSpecie))
-                        counter += 1
-                        if self.evolutionChain?.chain?.evolves_to!.isEmpty {
-                            tes = false
-                        }
-                    }*/
-                    
+                                      
                     
                 } else {
                     print("Não foi retornado nenhum dado")
@@ -261,19 +241,6 @@ class DetailViewController: UIViewController {
                                     self.abilityModalDescriptionTextView.text = text.replacingOccurrences(of: "\n", with: " ")
                                     self.showHideModal(show: true)
                                     break
-                                    /*let newViewController = self.storyboard?.instantiateViewController(withIdentifier: "ModalViewController") as! ModalViewController
-                                    
-                                    newViewController.abilityName = self.pokemon?.abilities?[index].ability?.name
-                                    newViewController.abilityDescription = text
-                                    
-                                    newViewController.modalPresentationStyle = UIModalPresentationStyle.popover
-                                    newViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-                                    
-                                                
-                                    self.present(newViewController, animated: true, completion: nil)*/
-                                    
-                                    
-                                    //self.descriptionLabel.text = flavor.flavor_text?.replacingOccurrences(of: "\n", with: " ")
                                 }
                             }
                         }
@@ -301,8 +268,7 @@ class DetailViewController: UIViewController {
                     let newViewController = self.storyboard?.instantiateViewController(withIdentifier: "TypeViewController") as! TypeViewController
                     
                     newViewController.type  = self.type
-                    newViewController.pokemonType = (self.types?[index].type?.name)! //UIColor(named: (self.types?[indexPath.item].type?.name)!)
-                                        
+                    newViewController.pokemonType = (self.types?[index].type?.name)!
                     newViewController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
                     newViewController.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
                                 
@@ -322,8 +288,6 @@ class DetailViewController: UIViewController {
     
     
     private func setPokemonImage() {
-        /*let url = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(self.id).png")!*/
-                
         let url = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(String(format: "%03d", id)).png")!
         
         let data = try? Data(contentsOf: url)
@@ -384,16 +348,6 @@ class DetailViewController: UIViewController {
     }
     
     private func setPokemonAbilities() {
-        /*let abilities = self.pokemon?.abilities
-        self.abilityLabel.text = ""
-        for ability in abilities! {
-            if let name = ability.ability?.name {
-                self.abilityLabel.text! += name + ", "
-            }
-        }
-        self.abilityLabel.text?.removeLast()
-        self.abilityLabel.text?.removeLast()*/
-        
         let abilities = self.pokemon?.abilities
         self.abilitiesCollectionView.reloadData()
     }
@@ -528,20 +482,5 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
         }
         return CGSize(width: 0, height: 0)
     }
-    
-    /*func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView.tag == 2 {
-            let newViewController = storyboard?.instantiateViewController(withIdentifier: "ModalViewController") as! ModalViewController
-            
-            newViewController.abilityName = self.pokemon?.abilities?[indexPath.item].ability?.name
-            newViewController.abilityDescription = self.pokemon?.abilities?[indexPath.item].ability?.name
-            
-            newViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            newViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-                        
-            present(newViewController, animated: true, completion: nil)
-        }
-    }*/
-    
     
 }
