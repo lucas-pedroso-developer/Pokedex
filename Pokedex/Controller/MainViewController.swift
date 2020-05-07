@@ -9,6 +9,7 @@
 
 import UIKit
 import Kingfisher
+import RSLoadingView
 
 class MyCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var myLabel: UILabel!
@@ -34,6 +35,7 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
     }
         
     func getPokemons(url: String) {
+        showLoadingHub()
         service.getAllPokemons(url: url) { result in
             switch result {
             case .success(let data):
@@ -47,8 +49,18 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
             case .failure(let error):
                 print(error)
                 print("erro")
+                self.hideLoadingHub()
             }
         }
+    }
+            
+    func showLoadingHub() {
+      let loadingView = RSLoadingView()
+      loadingView.show(on: view)
+    }
+
+    func hideLoadingHub() {
+      RSLoadingView.hide(from: view)
     }
                   
         
@@ -77,6 +89,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if !searchActive {
+            self.hideLoadingHub()
             if indexPath.item == self.pokemonArray.count - 4 && self.pokemonArray.count < (self.pokemons?.count)! {
                 self.getPokemons(url: (self.pokemons?.next!)!)
             }
@@ -108,7 +121,9 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 1
         cell.layer.cornerRadius = 8
-
+        
+        hideLoadingHub()
+        
         return cell
     }
     
@@ -204,3 +219,4 @@ extension MainViewController: UIViewControllerAnimatedTransitioning {
         })
     }
 }
+

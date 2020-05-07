@@ -8,6 +8,7 @@ target 'Pokedex' do
   # Pods for Pokedex
 
   pod 'Kingfisher', '~> 5.13'
+  pod "RSLoadingView"
 
   target 'PokedexTests' do
     inherit! :search_paths

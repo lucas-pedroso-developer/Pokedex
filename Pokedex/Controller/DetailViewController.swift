@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RSLoadingView
 
 class EvolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
@@ -105,7 +106,7 @@ class DetailViewController: UIViewController {
         
         getPokemon(url: urlPokeApi)
     }
-    
+        
     func getPokemon(url: String) {
         service.getPokemonDetail(url: url) { result in
             switch result {
@@ -285,7 +286,14 @@ class DetailViewController: UIViewController {
         }
     }
             
-    
+    func showLoadingHub() {
+      let loadingView = RSLoadingView()
+      loadingView.show(on: view)
+    }
+
+    func hideLoadingHub() {
+      RSLoadingView.hide(from: view)
+    }
     
     private func setPokemonImage() {
         let url = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(String(format: "%03d", id)).png")!
@@ -354,6 +362,7 @@ class DetailViewController: UIViewController {
     private func setPokemonTypes() {
         self.types = self.pokemon?.types
         self.typeCollectionView.reloadData()
+        self.hideLoadingHub()
     }
     
     func showHideModal(show: Bool) {

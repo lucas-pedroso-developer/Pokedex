@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Kingfisher
+import RSLoadingView
 
 class TypeDetailViewCell: UITableViewCell {
     @IBOutlet weak var typeImageView: UIImageView!
@@ -29,6 +31,8 @@ class TypeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.showLoadingHub()
+        
         self.typeTableView.delegate = self
         self.typeTableView.dataSource = self
         
@@ -37,6 +41,15 @@ class TypeViewController: UIViewController {
         self.backButton.tintColor = UIColor(named: pokemonType!)
         
         self.typeTableView.reloadData()
+    }
+    
+    func showLoadingHub() {
+      let loadingView = RSLoadingView()
+      loadingView.show(on: view)
+    }
+
+    func hideLoadingHub() {
+      RSLoadingView.hide(from: view)
     }
     
     @IBAction func back(_ sender: Any) {
@@ -51,6 +64,7 @@ extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
         if self.type != nil {
             return (self.type?.pokemon!.count)!
         }
+        self.hideLoadingHub()
         return 0
     }
     
@@ -61,9 +75,8 @@ extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
         let id = Int(url.split(separator: "/").last!)!
         let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!
         cell.typeImageView.kf.setImage(with: imageUrl)
+        self.hideLoadingHub()
         return cell
-        
-        
     }
     
     
