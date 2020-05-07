@@ -173,12 +173,6 @@
                                                 <action selector="back:" destination="R7t-bC-8Uf" id="PI8-GY-aG8"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Item" image="heart" catalog="system" id="paU-wd-Iet">
-                                            <color key="tintColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <connections>
-                                                <action selector="favorite:" destination="R7t-bC-8Uf" id="oYi-3Z-ZMX"/>
-                                            </connections>
-                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -199,8 +193,8 @@
                                             <action selector="change:" destination="R7t-bC-8Uf" eventType="valueChanged" id="h7p-7G-CYi"/>
                                         </connections>
                                     </segmentedControl>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FOO-p2-awM" userLabel="DataView">
-                                        <rect key="frame" x="35.5" y="95" width="304" height="238.5"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FOO-p2-awM" userLabel="DataView">
+                                        <rect key="frame" x="435.5" y="95" width="304" height="238.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vm4-i9-Onf">
                                                 <rect key="frame" x="0.0" y="0.0" width="91.5" height="69"/>
@@ -454,16 +448,16 @@
                                             <constraint firstItem="p5q-t8-q6W" firstAttribute="height" secondItem="LoV-l8-2Zv" secondAttribute="height" id="wfq-cj-5qQ"/>
                                         </constraints>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-Bw-mfb" userLabel="EvolutionView">
-                                        <rect key="frame" x="435.5" y="95" width="304" height="238.5"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-Bw-mfb" userLabel="EvolutionView">
+                                        <rect key="frame" x="35.5" y="95" width="304" height="238.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uQK-FX-Tej">
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uQK-FX-Tej">
                                                 <rect key="frame" x="0.0" y="4" width="304" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcj-MB-gxK">
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcj-MB-gxK">
                                                 <rect key="frame" x="0.0" y="28.5" width="304" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -725,7 +719,6 @@
                         <outlet property="descriptionLabel" destination="Yad-f5-B6V" id="R6c-mz-8oQ"/>
                         <outlet property="evolutionCollectionView" destination="Wib-f1-cBO" id="f8e-Ps-Mj9"/>
                         <outlet property="evolutionView" destination="Ifb-Bw-mfb" id="zow-by-Dkh"/>
-                        <outlet property="favoriteNavBarButton" destination="paU-wd-Iet" id="bJD-m0-Dl3"/>
                         <outlet property="heightLabel" destination="QWI-et-PT3" id="0wx-A3-GNF"/>
                         <outlet property="hpLabel" destination="PzG-9K-a0n" id="YGq-4M-k9v"/>
                         <outlet property="imageSlide" destination="zlU-4h-bAe" id="73Z-nO-Ftp"/>
@@ -854,7 +847,6 @@
     </scenes>
     <resources>
         <image name="arrow.left" catalog="system" width="128" height="98"/>
-        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="psyduck" width="920" height="898"/>
         <namedColor name="bug">
             <color red="0.65098039215686276" green="0.72549019607843135" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -11,7 +11,8 @@ import Alamofire
 
 public class PokedexService {
     let baseURL = "https://pokeapi.co/api/v2/pokemon"
-    
+        
+    //Refatorar para um método retornando Data?
     func getAllPokemons(url: String, completion: @escaping (Result<Pokemons?, HttpError>) -> ()) {
         AF.request(url, method: .get).responseJSON { response in
             if let status = response.response?.statusCode {

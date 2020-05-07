@@ -64,7 +64,6 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var typeColorBackgroundView: UIView!
     
     @IBOutlet weak var backNavBarButton: UIBarButtonItem!
-    @IBOutlet weak var favoriteNavBarButton: UIBarButtonItem!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var dataDescriptionLabel: UILabel!
     
@@ -170,54 +169,11 @@ class DetailViewController: UIViewController {
             case .success(let data):
                 if data != nil {
                     self.evolutionChain = data
-                    self.pokemonActualLabel.text = self.evolutionChain?.chain?.species?.name //atual
-                    self.pokemonEvolutionLabel.text = self.evolutionChain?.chain?.evolves_to?[0].species?.name //proximo
-                    
+                    //self.pokemonActualLabel.text = self.evolutionChain?.chain?.species?.name //atual
+                    //self.pokemonEvolutionLabel.text = self.evolutionChain?.chain?.evolves_to?[0].species?.name //proximo
                     /*print(self.evolutionChain?.chain?.species?.name) //1 - bulbassauro
                     print(self.evolutionChain?.chain?.evolves_to?[0].species?.name) //2 - ivyssauro
                     print(self.evolutionChain?.chain?.evolves_to?[0].evolves_to?[0].species?.name) // - venussauro*/
-                    
-                    /*print(self.evolutionChain?.chain?.species)
-                    print(self.evolutionChain?.chain?.evolves_to)
-                    //print(self.evolutionChain?.chain?.species?.name) //1 - bulbassauro
-                    print(self.evolutionChain?.chain?.evolves_to?.count)
-                    
-                    print(self.evolutionChain?.chain?.evolves_to?[0].evolves_to?.count)
-                    
-                    
-                     
-                    while true {
-                        if
-                    }*/
-                    
-                    
-                    /*if let evolutions = dict["evolutions"] as? [Dictionary<String, AnyObject>], evolutions.count > 0 {
-                        if let to = evolutions[0]["to"] as? String {
-                            //Mega evolutions not supported right now
-                            if to.range(of: "mega") == nil {
-                                if let uri = evolutions[0]["resource_uri"] as? String {
-                                    let newStr = uri.replacingOccurrences(of: "/api/v1/pokemon/", with: "")
-                                        
-                                    let num = newStr.replacingOccurrences(of: "/", with: "")
-                                        
-                                    self._nextEvolutionID = num
-                                    self._nextEvolutionText = to
-                                        
-                                    if let level = evolutions[0]["level"] as? Int {
-                                        self._nextEvolutionLevel = "\(level)"
-                                    }
-                                        
-                                    print(self._nextEvolutionID)
-                                    print(self._nextEvolutionText)
-                                    if self._nextEvolutionLevel != nil {
-                                            print(self._nextEvolutionLevel)
-                                    }
-                                }
-                            }
-                        }
-                    }*/
-                                      
-                    
                 } else {
                     print("Não foi retornado nenhum dado")
                 }
@@ -412,11 +368,7 @@ class DetailViewController: UIViewController {
     @IBAction func back(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    @IBAction func favorite(_ sender: UIBarButtonItem) {
-        
-    }
-    
+            
     @IBAction func change(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             self.dataView.isHidden = false
@@ -495,7 +447,6 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
             cell.layer.borderWidth = 1
             cell.layer.cornerRadius = self.view.bounds.width*4/100
             self.backNavBarButton.tintColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
-            self.favoriteNavBarButton.tintColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
             self.segment.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
             self.abilityLabel.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
             self.dataDescriptionLabel.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
