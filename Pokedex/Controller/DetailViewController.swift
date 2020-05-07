@@ -88,22 +88,20 @@ class DetailViewController: UIViewController {
         pokemonImageBackgroundViewHeight.constant = self.view.bounds.height*24/100
         pokemonImageBackgroundViewWidth.constant = self.view.bounds.height*24/100
         pokemonImageBackgroundView.layer.cornerRadius = self.view.bounds.height*12/100
-                  
-        
-        
+                        
         self.whiteBackgroundView.layer.cornerRadius = self.view.bounds.height*4/100
         self.whiteBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         self.modalView.layer.cornerRadius = self.view.bounds.height*4/100
         self.modalView.layer.cornerRadius = self.view.bounds.height*4/100
-        
-        /*self.pokemonIdLabel.layer.borderColor = UIColor.white.cgColor
-        self.pokemonIdLabel.layer.borderWidth = 1
-        self.pokemonIdLabel.layer.cornerRadius = 8*/
+                
         let urlPokeApi = "https://pokeapi.co/api/v2/pokemon/\(self.id)"
         
         self.abilityLabel.layer.cornerRadius = self.view.bounds.height*2/100
         self.dataDescriptionLabel.layer.cornerRadius = self.view.bounds.height*2/100
+        
+        
+        self.segment.setTitleTextAttributes( [NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
         
         getPokemon(url: urlPokeApi)
     }
@@ -324,7 +322,10 @@ class DetailViewController: UIViewController {
     
     
     private func setPokemonImage() {
-        let url = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(self.id).png")!
+        /*let url = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(self.id).png")!*/
+                
+        let url = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(String(format: "%03d", id)).png")!
+        
         let data = try? Data(contentsOf: url)
         self.pokemonImageView.image = UIImage(data: data!)
     }

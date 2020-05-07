@@ -29,6 +29,10 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        //"%02d"
+        var myInt = 12
+        
+        print(String(format: "%03d", myInt))
         
         getPokemons(url: api_url)
     }
@@ -86,12 +90,13 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "cell", for: indexPath as IndexPath) as! MyCollectionViewCell
-                        
+        //https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png
         if searchActive {
             cell.myLabel.text = self.pokemonArrayFiltered[indexPath.item]?.name
             let url = (self.pokemonArrayFiltered[indexPath.item]?.url)!
-            let id = Int(url.split(separator: "/").last!)!
-            let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!
+            let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)
+            /*let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!*/
+            let imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
             let data = try? Data(contentsOf: imageUrl)
             cell.imageView.image = UIImage(data: data!)
         } else {
@@ -100,8 +105,10 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             }
                                     
             if let url = self.pokemonArray[indexPath.item]?.url {
-                let id = Int(url.split(separator: "/").last!)!
-                let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!
+                //let id = Int(url.split(separator: "/").last!)!
+                let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)
+                /*let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!*/
+                let imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
                 let data = try? Data(contentsOf: imageUrl)
                 cell.imageView.image = UIImage(data: data!)
             }
