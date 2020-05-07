@@ -56,16 +56,11 @@ extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:  "cell", for: indexPath as IndexPath) as!  TypeDetailViewCell
-        
         cell.nameLabel.text = self.type?.pokemon?[indexPath.row].pokemon?.name
-        
-        
         let url = (self.type?.pokemon?[indexPath.row].pokemon?.url)!
         let id = Int(url.split(separator: "/").last!)!
         let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!
-        let data = try? Data(contentsOf: imageUrl)
-        cell.typeImageView.image = UIImage(data: data!)
-        
+        cell.typeImageView.kf.setImage(with: imageUrl)
         return cell
         
         

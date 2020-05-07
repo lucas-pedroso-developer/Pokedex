@@ -8,6 +8,7 @@
 
 
 import UIKit
+import Kingfisher
 
 class MyCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var myLabel: UILabel!
@@ -89,9 +90,8 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.myLabel.text = self.pokemonArrayFiltered[indexPath.item]?.name
             let url = (self.pokemonArrayFiltered[indexPath.item]?.url)!
             let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)
-            let imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
-            let data = try? Data(contentsOf: imageUrl)
-            cell.imageView.image = UIImage(data: data!)
+            let imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!           
+            cell.imageView.kf.setImage(with: imageUrl)
         } else {
             if let name = self.pokemonArray[indexPath.item]?.name {
                 cell.myLabel.text = name
@@ -100,8 +100,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             if let url = self.pokemonArray[indexPath.item]?.url {
                 let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)                
                 let imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
-                let data = try? Data(contentsOf: imageUrl)
-                cell.imageView.image = UIImage(data: data!)
+                cell.imageView.kf.setImage(with: imageUrl)
             }
         }
                         

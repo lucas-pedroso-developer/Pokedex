@@ -289,9 +289,7 @@ class DetailViewController: UIViewController {
     
     private func setPokemonImage() {
         let url = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(String(format: "%03d", id)).png")!
-        
-        let data = try? Data(contentsOf: url)
-        self.pokemonImageView.image = UIImage(data: data!)
+        self.pokemonImageView.kf.setImage(with: url)
     }
     
     private func setPokemonData() {
@@ -300,7 +298,8 @@ class DetailViewController: UIViewController {
         }
         
         if let id = self.pokemon?.id {
-            self.pokemonIdLabel.text = "# \(id)"
+            self.pokemonIdLabel.text = "# \(String(format: "%03d", id))"
+            
         }
         
         if let height = self.pokemon?.height {
