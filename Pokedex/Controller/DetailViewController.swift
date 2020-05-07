@@ -8,6 +8,7 @@
 
 import UIKit
 import RSLoadingView
+import ImageSlideshow
 
 class EvolutionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
@@ -22,7 +23,7 @@ class DetailViewController: UIViewController {
     var evolutionChain: EvolutionChainDetail?
     var ability: AbilitiesDetail?
     var type: TypeDetail?
-    
+        
     let service = PokedexService()
     var api_url = "https://pokeapi.co/api/v2/pokemon"
     var types: [Types]?
@@ -69,13 +70,15 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var pokemonActualLabel: UILabel!
     @IBOutlet weak var pokemonEvolutionLabel: UILabel!
-    
-    
+        
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var modalView: UIView!
     @IBOutlet weak var abilityModalNameLabel: UILabel!
     @IBOutlet weak var abilityModalDescriptionTextView: UITextView!
     @IBOutlet weak var abilityModalCloseButton: UIButton!
+    
+    @IBOutlet weak var imageSlide: ImageSlideshow!
+    @IBOutlet weak var spritesLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,9 +101,9 @@ class DetailViewController: UIViewController {
                 
         let urlPokeApi = "https://pokeapi.co/api/v2/pokemon/\(self.id)"
         
-        self.abilityLabel.layer.cornerRadius = self.view.bounds.height*2/100
-        self.dataDescriptionLabel.layer.cornerRadius = self.view.bounds.height*2/100
-        
+        self.abilityLabel.layer.cornerRadius = self.view.bounds.height*1/100
+        self.dataDescriptionLabel.layer.cornerRadius = self.view.bounds.height*1/100
+        self.spritesLabel.layer.cornerRadius = self.view.bounds.height*1/100
         
         self.segment.setTitleTextAttributes( [NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
         
@@ -298,6 +301,42 @@ class DetailViewController: UIViewController {
     private func setPokemonImage() {
         let url = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(String(format: "%03d", id)).png")!
         self.pokemonImageView.kf.setImage(with: url)
+        
+        var spritesUrlArray: [KingfisherSource] = []
+        
+        if let front_default = self.pokemon?.sprites?.front_default {
+            spritesUrlArray.append(KingfisherSource(urlString: front_default)!)
+        }
+        
+        if let front_female = self.pokemon?.sprites?.front_female {
+            spritesUrlArray.append(KingfisherSource(urlString: front_female)!)
+        }
+        
+        if let front_shiny = self.pokemon?.sprites?.front_shiny {
+            spritesUrlArray.append(KingfisherSource(urlString: front_shiny)!)
+        }
+        
+        if let front_shiny_female = self.pokemon?.sprites?.front_shiny_female {
+            spritesUrlArray.append(KingfisherSource(urlString: front_shiny_female)!)
+        }
+        
+        if let back_default = self.pokemon?.sprites?.back_default {
+            spritesUrlArray.append(KingfisherSource(urlString: back_default)!)
+        }
+        
+        if let back_female = self.pokemon?.sprites?.back_female {
+            spritesUrlArray.append(KingfisherSource(urlString: back_female)!)
+        }
+        
+        if let back_shiny = self.pokemon?.sprites?.back_shiny {
+            spritesUrlArray.append(KingfisherSource(urlString: back_shiny)!)
+        }
+        
+        if let back_shiny_female = self.pokemon?.sprites?.back_shiny_female {            
+            spritesUrlArray.append(KingfisherSource(urlString: back_shiny_female)!)
+        }
+        
+        imageSlide.setImageInputs(spritesUrlArray)        
     }
     
     private func setPokemonData() {
@@ -460,6 +499,7 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
             self.segment.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
             self.abilityLabel.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
             self.dataDescriptionLabel.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
+            self.spritesLabel.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
             return cell
         } else if collectionView.tag == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "evolutionCell", for: indexPath as IndexPath) as! EvolutionCollectionViewCell
