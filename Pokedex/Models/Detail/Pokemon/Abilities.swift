@@ -13,13 +13,6 @@ public struct Abilities : Model {
     let is_hidden : Bool?
     let slot : Int?
 
-    enum CodingKeys: String, CodingKey {
-
-        case ability = "ability"
-        case is_hidden = "is_hidden"
-        case slot = "slot"
-    }
-
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         ability = try values.decodeIfPresent(Ability.self, forKey: .ability)

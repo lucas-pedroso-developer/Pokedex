@@ -13,13 +13,6 @@ public struct Stats : Model {
     let effort : Int?
     let stat : Stat?
 
-    enum CodingKeys: String, CodingKey {
-
-        case base_stat = "base_stat"
-        case effort = "effort"
-        case stat = "stat"
-    }
-
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         base_stat = try values.decodeIfPresent(Int.self, forKey: .base_stat)

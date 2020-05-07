@@ -20,7 +20,7 @@ class DetailViewController: UIViewController {
     var specie: SpecieDetail?
     var evolutionChain: EvolutionChainDetail?
     var ability: AbilitiesDetail?
-    
+    var type: TypeDetail?
     
     let service = PokedexService()
     var api_url = "https://pokeapi.co/api/v2/pokemon"
@@ -37,8 +37,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var specialAtackLabel: UILabel!
     @IBOutlet weak var specialDefenseLabel: UILabel!
     @IBOutlet weak var speedLabel: UILabel!
-    @IBOutlet weak var abilityLabel: UILabel!
-    @IBOutlet weak var abilitiesLabel: UILabel!
+    @IBOutlet weak var abilityLabel: UILabel!    
         
     @IBOutlet weak var typeCollectionView: UICollectionView!
     @IBOutlet weak var evolutionCollectionView: UICollectionView!
@@ -65,6 +64,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var backNavBarButton: UIBarButtonItem!
     @IBOutlet weak var favoriteNavBarButton: UIBarButtonItem!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var dataDescriptionLabel: UILabel!
     
     @IBOutlet weak var pokemonActualLabel: UILabel!
     @IBOutlet weak var pokemonEvolutionLabel: UILabel!
@@ -95,6 +95,7 @@ class DetailViewController: UIViewController {
         self.whiteBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         self.modalView.layer.cornerRadius = self.view.bounds.height*4/100
+        self.modalView.layer.cornerRadius = self.view.bounds.height*4/100
         
         /*self.pokemonIdLabel.layer.borderColor = UIColor.white.cgColor
         self.pokemonIdLabel.layer.borderWidth = 1
@@ -102,6 +103,7 @@ class DetailViewController: UIViewController {
         let urlPokeApi = "https://pokeapi.co/api/v2/pokemon/\(self.id)"
         
         self.abilityLabel.layer.cornerRadius = self.view.bounds.height*2/100
+        self.dataDescriptionLabel.layer.cornerRadius = self.view.bounds.height*2/100
         
         getPokemon(url: urlPokeApi)
     }
@@ -179,6 +181,7 @@ class DetailViewController: UIViewController {
                     /*print(self.evolutionChain?.chain?.species?.name) //1 - bulbassauro
                     print(self.evolutionChain?.chain?.evolves_to?[0].species?.name) //2 - ivyssauro
                     print(self.evolutionChain?.chain?.evolves_to?[0].evolves_to?[0].species?.name) // - venussauro*/
+                    
                     /*print(self.evolutionChain?.chain?.species)
                     print(self.evolutionChain?.chain?.evolves_to)
                     //print(self.evolutionChain?.chain?.species?.name) //1 - bulbassauro
@@ -288,6 +291,37 @@ class DetailViewController: UIViewController {
             }
         }
     }
+    
+    func getTypesPokemon(url: String, index: Int) {
+        service.getPokemonTypes(url: url) { result in
+            switch result {
+            case .success(let data):
+                if data != nil {
+                    print(self.type)
+                    self.type = data
+                                        
+                    let newViewController = self.storyboard?.instantiateViewController(withIdentifier: "TypeViewController") as! TypeViewController
+                    
+                    newViewController.type  = self.type
+                    newViewController.pokemonType = (self.types?[index].type?.name)! //UIColor(named: (self.types?[indexPath.item].type?.name)!)
+                                        
+                    newViewController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+                    newViewController.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
+                                
+                    self.present(newViewController, animated: true, completion: nil)
+                    
+                    
+                    
+                }
+            case .failure(let error):
+                print(error)
+                print("erro")
+            
+            }
+        }
+    }
+            
+    
     
     private func setPokemonImage() {
         let url = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(self.id).png")!
@@ -409,6 +443,13 @@ class DetailViewController: UIViewController {
         self.showHideModal(show: false)
     }
     
+    @IBAction func showPokemonTypes(_ sender: UIButton) {
+        if let url = self.pokemon?.types?[sender.tag].type?.url {
+            self.getTypesPokemon(url: url, index: sender.tag)
+        }
+    }
+    
+    
 }
 
 class TypeCollectionViewCell: UICollectionViewCell {
@@ -445,6 +486,7 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
         if collectionView.tag == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "cell", for: indexPath as IndexPath) as! TypeCollectionViewCell
             cell.typeButton.setTitle(self.types?[indexPath.item].type?.name, for: .normal)
+            cell.typeButton.tag = indexPath.item
             self.typeColorBackgroundView.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
             cell.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
             cell.layer.borderColor = UIColor.white.cgColor
@@ -454,6 +496,7 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
             self.favoriteNavBarButton.tintColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
             self.segment.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
             self.abilityLabel.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
+            self.dataDescriptionLabel.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
             return cell
         } else if collectionView.tag == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "evolutionCell", for: indexPath as IndexPath) as! EvolutionCollectionViewCell
@@ -485,7 +528,7 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
         return CGSize(width: 0, height: 0)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    /*func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView.tag == 2 {
             let newViewController = storyboard?.instantiateViewController(withIdentifier: "ModalViewController") as! ModalViewController
             
@@ -497,7 +540,7 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
                         
             present(newViewController, animated: true, completion: nil)
         }
-    }
+    }*/
     
     
 }

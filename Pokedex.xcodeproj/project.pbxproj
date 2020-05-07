@@ -21,7 +21,9 @@
 		6A5368F12462DE0400240E93 /* AbilitiesDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5368F02462DE0400240E93 /* AbilitiesDetail.swift */; };
 		6A5368F32462E70D00240E93 /* Ability_Flavor_text_Entries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5368F22462E70D00240E93 /* Ability_Flavor_text_Entries.swift */; };
 		6A5368F52462E7A200240E93 /* Version_group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5368F42462E7A200240E93 /* Version_group.swift */; };
-		6A5368F724632B4500240E93 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5368F624632B4500240E93 /* ModalViewController.swift */; };
+		6A5368FA246361CA00240E93 /* TypeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5368F9246361CA00240E93 /* TypeDetail.swift */; };
+		6A5368FC246364A000240E93 /* TypePokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5368FB246364A000240E93 /* TypePokemon.swift */; };
+		6A5368FE24637C4600240E93 /* TypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5368FD24637C4600240E93 /* TypeViewController.swift */; };
 		6AB489B02458737C00A4643D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB489AF2458737C00A4643D /* AppDelegate.swift */; };
 		6AB489B22458737C00A4643D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB489B12458737C00A4643D /* SceneDelegate.swift */; };
 		6AB489B42458737C00A4643D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB489B32458737C00A4643D /* MainViewController.swift */; };
@@ -72,7 +74,9 @@
 		6A5368F02462DE0400240E93 /* AbilitiesDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilitiesDetail.swift; sourceTree = "<group>"; };
 		6A5368F22462E70D00240E93 /* Ability_Flavor_text_Entries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability_Flavor_text_Entries.swift; sourceTree = "<group>"; };
 		6A5368F42462E7A200240E93 /* Version_group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version_group.swift; sourceTree = "<group>"; };
-		6A5368F624632B4500240E93 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		6A5368F9246361CA00240E93 /* TypeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeDetail.swift; sourceTree = "<group>"; };
+		6A5368FB246364A000240E93 /* TypePokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypePokemon.swift; sourceTree = "<group>"; };
+		6A5368FD24637C4600240E93 /* TypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeViewController.swift; sourceTree = "<group>"; };
 		6AB489AC2458737C00A4643D /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AB489AF2458737C00A4643D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AB489B12458737C00A4643D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 		6A5368D72460AB6F00240E93 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				6A5368F8246361A700240E93 /* Type */,
 				6A5368EF2462DD4200240E93 /* Ability */,
 				6A5368E22460BFF900240E93 /* Chain */,
 				6A5368D92460AB8C00240E93 /* Specie */,
@@ -190,6 +195,15 @@
 			path = Ability;
 			sourceTree = "<group>";
 		};
+		6A5368F8246361A700240E93 /* Type */ = {
+			isa = PBXGroup;
+			children = (
+				6A5368F9246361CA00240E93 /* TypeDetail.swift */,
+				6A5368FB246364A000240E93 /* TypePokemon.swift */,
+			);
+			path = Type;
+			sourceTree = "<group>";
+		};
 		6AB489A32458737C00A4643D = {
 			isa = PBXGroup;
 			children = (
@@ -247,7 +261,7 @@
 			children = (
 				6AB489B32458737C00A4643D /* MainViewController.swift */,
 				6AB48A0E245B4CB900A4643D /* DetailViewController.swift */,
-				6A5368F624632B4500240E93 /* ModalViewController.swift */,
+				6A5368FD24637C4600240E93 /* TypeViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -382,6 +396,7 @@
 				6A5368E62460C39B00240E93 /* Chain.swift in Sources */,
 				6AB489BA2458737C00A4643D /* Pokedex.xcdatamodeld in Sources */,
 				6AB48A03245B2CDD00A4643D /* Stats.swift in Sources */,
+				6A5368FA246361CA00240E93 /* TypeDetail.swift in Sources */,
 				6AB489FF245B2C5A00A4643D /* Abilities.swift in Sources */,
 				6AB48A07245B2D2B00A4643D /* Types.swift in Sources */,
 				6AB48A09245B2D7900A4643D /* Species.swift in Sources */,
@@ -391,6 +406,7 @@
 				6AB489B42458737C00A4643D /* MainViewController.swift in Sources */,
 				6AB489FD245B2BF900A4643D /* Stat.swift in Sources */,
 				6AB48A0B245B2D9C00A4643D /* Sprites.swift in Sources */,
+				6A5368FC246364A000240E93 /* TypePokemon.swift in Sources */,
 				6A5368DF2460AC5400240E93 /* Varieties.swift in Sources */,
 				6AB48A0F245B4CB900A4643D /* DetailViewController.swift in Sources */,
 				6A5368E12460AC9200240E93 /* Pokemon.swift in Sources */,
@@ -403,11 +419,11 @@
 				6A5368DB2460ABB000240E93 /* Color.swift in Sources */,
 				6A5368F12462DE0400240E93 /* AbilitiesDetail.swift in Sources */,
 				6AB489D92458A00000A4643D /* PokedexService.swift in Sources */,
-				6A5368F724632B4500240E93 /* ModalViewController.swift in Sources */,
 				6AB489B22458737C00A4643D /* SceneDelegate.swift in Sources */,
 				6AB489FB245A1A5200A4643D /* PokemonDetail.swift in Sources */,
 				6AB48A05245B2D0E00A4643D /* Type.swift in Sources */,
 				6AB48A01245B2CA200A4643D /* Ability.swift in Sources */,
+				6A5368FE24637C4600240E93 /* TypeViewController.swift in Sources */,
 				6AB489E22458B9D000A4643D /* Model.swift in Sources */,
 				6A5368E42460C01800240E93 /* EvolutionChainDetail.swift in Sources */,
 				6A5368E82460C3FB00240E93 /* Evolves_to.swift in Sources */,
