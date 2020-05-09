@@ -150,29 +150,37 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         return searchView
     }
 
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.pokemonArrayFiltered.removeAll()
-        for item in self.pokemonArray {
-            if let name = item?.name!.lowercased() {
-                print(name)
-                if ((name.contains(searchBar.text!.lowercased()))) {
-                    self.pokemonArrayFiltered.append(item)
-                }
-            }
-        }
-            
-        if (searchBar.text!.isEmpty) {
-            self.pokemonArrayFiltered = self.pokemonArray
-        }
-        
-        searchActive = true
-        
-        self.collectionView.reloadData()
-    }
 }
 
 extension MainViewController: UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {}
+        
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        self.pokemonArrayFiltered.removeAll()
+        
+        if !searchBar.text!.isEmpty {
+            self.searchActive = true
+            
+            for item in self.pokemonArray {
+                if let name = item?.name!.lowercased() {
+                    print(name)
+                    if ((name.contains(searchBar.text!.lowercased()))) {
+                        self.pokemonArrayFiltered.append(item)
+                    }
+                }
+            }
+                
+            if (searchBar.text!.isEmpty) {
+                self.pokemonArrayFiltered = self.pokemonArray
+            }
+            
+        } else {
+            self.searchActive = false
+        }
+        
+        self.collectionView.reloadData()
+    }
 }
 
 extension MainViewController:  UIViewControllerTransitioningDelegate {

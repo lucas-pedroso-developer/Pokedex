@@ -192,9 +192,7 @@ class DetailViewController: UIViewController {
                     self.ability = data
                     
                     if let flavor_text_entries = self.ability?.flavor_text_entries {
-                        for flavor in flavor_text_entries {
-                            print(flavor.language?.name)
-                            print()
+                        for flavor in flavor_text_entries {                            
                             if (flavor.language?.name?.elementsEqual("en"))! && ((flavor.version_group?.name?.elementsEqual("omega-ruby-alpha-sapphire")) != nil) {
                                 if let text = flavor.flavor_text {
                                     self.abilityModalNameLabel.text = self.pokemon?.abilities?[index].ability?.name
