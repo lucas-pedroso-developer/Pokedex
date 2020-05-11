@@ -124,11 +124,12 @@ class DetailViewController: UIViewController {
                         self.getSpecie(url: specieUrl)
                     }
                 } else {
-                    print("Não foi retornado nenhum Pokemon")
+                    let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                    self.present(alert, animated: true, completion: nil)
                 }
             case .failure(let error):
-                print(error)
-                print("erro")
+                let alert = AlertView.showAlert(title: "Erro", message:"Ocorreu um erro, tente mais tarde novamente")
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -154,11 +155,12 @@ class DetailViewController: UIViewController {
                         self.getPokemonEvolution(url: url)
                     }
                 } else {
-                    print("Não foi retornado nenhum dado")
+                    let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                    self.present(alert, animated: true, completion: nil)
                 }
             case .failure(let error):
-                print(error)
-                print("erro")
+                let alert = AlertView.showAlert(title: "Erro", message:"Ocorreu um erro, tente mais tarde novamente")
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -175,11 +177,12 @@ class DetailViewController: UIViewController {
                     print(self.evolutionChain?.chain?.evolves_to?[0].species?.name) //2 - ivyssauro
                     print(self.evolutionChain?.chain?.evolves_to?[0].evolves_to?[0].species?.name) // - venussauro*/
                 } else {
-                    print("Não foi retornado nenhum dado")
+                    let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                    self.present(alert, animated: true, completion: nil)
                 }
             case .failure(let error):
-                print(error)
-                print("erro")
+                let alert = AlertView.showAlert(title: "Erro", message:"Ocorreu um erro, tente mais tarde novamente")
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -206,11 +209,12 @@ class DetailViewController: UIViewController {
                                                             
                     
                 } else {
-                    print("Não foi retornado nenhum dado")
+                    let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                    self.present(alert, animated: true, completion: nil)
                 }
             case .failure(let error):
-                print(error)
-                print("erro")
+                let alert = AlertView.showAlert(title: "Erro", message:"Ocorreu um erro, tente mais tarde novamente")
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -231,13 +235,14 @@ class DetailViewController: UIViewController {
                     newViewController.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
                                 
                     self.present(newViewController, animated: true, completion: nil)
-                    
-                    
-                    
+                                                            
+                } else {
+                    let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                    self.present(alert, animated: true, completion: nil)
                 }
             case .failure(let error):
-                print(error)
-                print("erro")
+                let alert = AlertView.showAlert(title: "Erro", message:"Ocorreu um erro, tente mais tarde novamente")
+                self.present(alert, animated: true, completion: nil)
             
             }
         }

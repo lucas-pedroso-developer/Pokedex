@@ -31,6 +31,7 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         getPokemons(url: api_url)
     }
         
@@ -39,16 +40,18 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
         service.getAllPokemons(url: url) { result in
             switch result {
             case .success(let data):
-                if data != nil {
+                if data != nil {                
                     self.pokemons = data
                     self.pokemonArray.append(contentsOf: (data?.results)!)
                     self.collectionView.reloadData()
                 } else {
-                    print("Não foi retornado nenhum Pokemon")
+                    let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum Pokemon")
+                    self.present(alert, animated: true, completion: nil)
+                    self.hideLoadingHub()
                 }
             case .failure(let error):
-                print(error)
-                print("erro")
+                let alert = AlertView.showAlert(title: "Erro", message:"Ocorreu um erro, tente mais tarde novamente!")
+                self.present(alert, animated: true, completion: nil)
                 self.hideLoadingHub()
             }
         }
@@ -62,6 +65,12 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
     func hideLoadingHub() {
       RSLoadingView.hide(from: view)
     }
+    
+    /*func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }*/
                   
         
 }
