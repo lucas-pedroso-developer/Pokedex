@@ -34,16 +34,24 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
         
         getPokemons(url: api_url)
     }
-        
+            
     func getPokemons(url: String) {
         showLoadingHub()
-        service.getAllPokemons(url: url) { result in
+        service.get(url: url) { result in
             switch result {
             case .success(let data):
-                if data != nil {                
-                    self.pokemons = data
-                    self.pokemonArray.append(contentsOf: (data?.results)!)
-                    self.collectionView.reloadData()
+                if data != nil {
+                    let decoder = JSONDecoder()
+                    do {
+                       if let dataFromJSON = data {
+                            self.pokemons = try decoder.decode(Pokemons.self, from: dataFromJSON)
+                            self.pokemonArray.append(contentsOf: (self.pokemons?.results)!)
+                            self.collectionView.reloadData()
+                       }
+                   } catch {
+                       let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum Pokemon")
+                       self.present(alert, animated: true, completion: nil)
+                   }
                 } else {
                     let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum Pokemon")
                     self.present(alert, animated: true, completion: nil)

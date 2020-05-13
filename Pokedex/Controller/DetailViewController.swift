@@ -23,11 +23,12 @@ class DetailViewController: UIViewController {
     var evolutionChain: EvolutionChainDetail?
     var ability: AbilitiesDetail?
     var type: TypeDetail?
-        
-    let service = PokedexService()
-    var api_url = "https://pokeapi.co/api/v2/pokemon"
     var types: [Types]?
     var pokemonArray: [Int: String] = [:]
+    var api_url = "https://pokeapi.co/api/v2/pokemon"
+    
+    let service = PokedexService()
+    let decoder = JSONDecoder()
     
     @IBOutlet weak var pokemonNameLabel: UILabel!
     @IBOutlet weak var navbar: UINavigationBar!
@@ -108,13 +109,20 @@ class DetailViewController: UIViewController {
         
         getPokemon(url: urlPokeApi)
     }
-        
+      
     func getPokemon(url: String) {
-        service.getPokemonDetail(url: url) { result in
+        service.get(url: url) { result in
             switch result {
             case .success(let data):
                 if data != nil {
-                    self.pokemon = data
+                    do {
+                        if let dataFromJSON = data {
+                            self.pokemon = try self.decoder.decode(PokemonDetail.self, from: dataFromJSON)
+                        }
+                    } catch {
+                        let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado o Pokemon")
+                        self.present(alert, animated: true, completion: nil)
+                    }
                     self.setPokemonImage()
                     self.setPokemonData()
                     self.setPokemonStatus()
@@ -133,13 +141,20 @@ class DetailViewController: UIViewController {
             }
         }
     }
-    
+        
     func getSpecie(url: String) {
-        service.getPokemonSpecie(url: url) { result in
+        service.get(url: url) { result in
             switch result {
             case .success(let data):
                 if data != nil {
-                    self.specie = data
+                    do {
+                        if let dataFromJSON = data {
+                            self.specie = try self.decoder.decode(SpecieDetail.self, from: dataFromJSON)
+                        }
+                    } catch {
+                        let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                        self.present(alert, animated: true, completion: nil)
+                    }                                                            
                     
                     if let flavor_text_entries = self.specie?.flavor_text_entries {
                         for flavor in flavor_text_entries {
@@ -166,11 +181,18 @@ class DetailViewController: UIViewController {
     }
             
     func getPokemonEvolution(url: String) {
-        service.getPokemonEvolution(url: url) { result in
+        service.get(url: url) { result in
             switch result {
             case .success(let data):
                 if data != nil {
-                    self.evolutionChain = data
+                    do {
+                        if let dataFromJSON = data {
+                            self.evolutionChain = try self.decoder.decode(EvolutionChainDetail.self, from: dataFromJSON)
+                        }
+                    } catch {
+                        let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                        self.present(alert, animated: true, completion: nil)
+                    }
                     //self.pokemonActualLabel.text = self.evolutionChain?.chain?.species?.name //atual
                     //self.pokemonEvolutionLabel.text = self.evolutionChain?.chain?.evolves_to?[0].species?.name //proximo
                     /*print(self.evolutionChain?.chain?.species?.name) //1 - bulbassauro
@@ -188,12 +210,18 @@ class DetailViewController: UIViewController {
     }
     
     func getAbilities(url: String, index: Int) {
-        service.getPokemonAbilities(url: url) { result in
+        service.get(url: url) { result in
             switch result {
             case .success(let data):
                 if data != nil {
-                    self.ability = data
-                    
+                    do {
+                        if let dataFromJSON = data {
+                            self.ability = try self.decoder.decode(AbilitiesDetail.self, from: dataFromJSON)
+                        }
+                    } catch {
+                        let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                        self.present(alert, animated: true, completion: nil)
+                    }
                     if let flavor_text_entries = self.ability?.flavor_text_entries {
                         for flavor in flavor_text_entries {                            
                             if (flavor.language?.name?.elementsEqual("en"))! && ((flavor.version_group?.name?.elementsEqual("omega-ruby-alpha-sapphire")) != nil) {
@@ -220,20 +248,24 @@ class DetailViewController: UIViewController {
     }
     
     func getTypesPokemon(url: String, index: Int) {
-        service.getPokemonTypes(url: url) { result in
+        service.get(url: url) { result in
             switch result {
             case .success(let data):
                 if data != nil {
-                    print(self.type)
-                    self.type = data
-                                        
-                    let newViewController = self.storyboard?.instantiateViewController(withIdentifier: "TypeViewController") as! TypeViewController
+                    do {
+                        if let dataFromJSON = data {
+                            self.type = try self.decoder.decode(TypeDetail.self, from: dataFromJSON)
+                        }
+                    } catch {
+                        let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                        self.present(alert, animated: true, completion: nil)
+                    }
                     
+                    let newViewController = self.storyboard?.instantiateViewController(withIdentifier: "TypeViewController") as! TypeViewController
                     newViewController.type  = self.type
                     newViewController.pokemonType = (self.types?[index].type?.name)!
                     newViewController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-                    newViewController.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
-                                
+                    newViewController.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal                                
                     self.present(newViewController, animated: true, completion: nil)
                                                             
                 } else {
