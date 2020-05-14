@@ -17,6 +17,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4gT-MP-Lsc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="kz3-m6-Zwo"/>
+                                </constraints>
+                                <color key="tintColor" name="bug"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" name="electric"/>
+                                </textAttributes>
+                                <textAttributes key="largeTitleTextAttributes">
+                                    <color key="textColor" name="dragon"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem id="kL1-ws-UT0"/>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pokedex" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uxL-U7-zhK">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="20"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rl8-Fg-ICA">
                                 <rect key="frame" x="19" y="48" width="337.5" height="599"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -100,29 +123,6 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="iiT-0E-QhI"/>
                                 </connections>
                             </collectionView>
-                            <navigationBar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4gT-MP-Lsc">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="kz3-m6-Zwo"/>
-                                </constraints>
-                                <color key="tintColor" name="bug"/>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <color key="textColor" name="electric"/>
-                                </textAttributes>
-                                <textAttributes key="largeTitleTextAttributes">
-                                    <color key="textColor" name="dragon"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem id="kL1-ws-UT0"/>
-                                </items>
-                            </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pokedex" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uxL-U7-zhK">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="20"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -193,8 +193,8 @@
                                             <action selector="change:" destination="R7t-bC-8Uf" eventType="valueChanged" id="h7p-7G-CYi"/>
                                         </connections>
                                     </segmentedControl>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FOO-p2-awM" userLabel="DataView">
-                                        <rect key="frame" x="435.5" y="95" width="304" height="238.5"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FOO-p2-awM" userLabel="DataView">
+                                        <rect key="frame" x="35.5" y="95" width="304" height="238.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vm4-i9-Onf">
                                                 <rect key="frame" x="0.0" y="0.0" width="91.5" height="69"/>
@@ -245,7 +245,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view autoresizesSubviews="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlU-4h-bAe" customClass="ImageSlideshow" customModule="ImageSlideshow">
-                                                <rect key="frame" x="76" y="116" width="152" height="114.5"/>
+                                                <rect key="frame" x="76" y="120" width="152" height="110.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <label autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sprites" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cB8-G3-l8e">
@@ -265,9 +265,9 @@
                                             <constraint firstItem="QWI-et-PT3" firstAttribute="centerY" secondItem="0uV-2I-Gep" secondAttribute="centerY" id="FaK-40-EYj"/>
                                             <constraint firstItem="cB8-G3-l8e" firstAttribute="width" secondItem="FOO-p2-awM" secondAttribute="width" multiplier="0.5" id="IPI-vF-85F"/>
                                             <constraint firstAttribute="trailing" secondItem="Yad-f5-B6V" secondAttribute="trailing" id="JTJ-du-LIc"/>
-                                            <constraint firstItem="zlU-4h-bAe" firstAttribute="top" secondItem="cB8-G3-l8e" secondAttribute="bottom" constant="4" id="LjY-co-Bph"/>
                                             <constraint firstItem="cB8-G3-l8e" firstAttribute="top" secondItem="Yad-f5-B6V" secondAttribute="bottom" constant="8" id="Nfd-uM-r72"/>
                                             <constraint firstItem="MVH-bO-F5S" firstAttribute="centerY" secondItem="kCn-JO-cmI" secondAttribute="centerY" id="Ntj-cl-hsX"/>
+                                            <constraint firstItem="zlU-4h-bAe" firstAttribute="top" secondItem="cB8-G3-l8e" secondAttribute="bottom" constant="8" id="Pdg-lj-d1E"/>
                                             <constraint firstItem="MVH-bO-F5S" firstAttribute="leading" secondItem="Vm4-i9-Onf" secondAttribute="trailing" id="Pkh-dL-Rcb"/>
                                             <constraint firstItem="Vm4-i9-Onf" firstAttribute="width" secondItem="FOO-p2-awM" secondAttribute="width" multiplier="0.3" id="QBN-bO-IQp"/>
                                             <constraint firstItem="Vm4-i9-Onf" firstAttribute="top" secondItem="FOO-p2-awM" secondAttribute="top" id="VK6-TX-heq"/>
@@ -366,7 +366,7 @@
                                                 </subviews>
                                             </stackView>
                                             <view autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pve-TB-bna">
-                                                <rect key="frame" x="0.0" y="157" width="304" height="73.5"/>
+                                                <rect key="frame" x="0.0" y="162" width="304" height="66.5"/>
                                                 <subviews>
                                                     <label autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Abilities" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZk-0P-33j">
                                                         <rect key="frame" x="0.0" y="0.0" width="304" height="16"/>
@@ -376,7 +376,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <collectionView autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="X8m-QP-mdc">
-                                                        <rect key="frame" x="0.0" y="20" width="304" height="53.5"/>
+                                                        <rect key="frame" x="0.0" y="20" width="304" height="46.5"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HXj-YH-V0M">
                                                             <size key="itemSize" width="103" height="32"/>
@@ -386,7 +386,7 @@
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="abilityCell" id="oq1-FJ-1jQ" customClass="AbilitiesCollectionViewCell" customModule="Pokedex" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="11" width="103" height="32"/>
+                                                                <rect key="frame" x="0.0" y="7.5" width="103" height="32"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Hj0-yf-i1K">
                                                                     <rect key="frame" x="0.0" y="0.0" width="103" height="32"/>
@@ -442,14 +442,13 @@
                                             <constraint firstItem="p5q-t8-q6W" firstAttribute="leading" secondItem="LoV-l8-2Zv" secondAttribute="trailing" id="CXn-5G-ecH"/>
                                             <constraint firstItem="LoV-l8-2Zv" firstAttribute="leading" secondItem="fo0-Fc-WnY" secondAttribute="leading" id="IG3-Yf-eOD"/>
                                             <constraint firstItem="p5q-t8-q6W" firstAttribute="centerY" secondItem="LoV-l8-2Zv" secondAttribute="centerY" id="OXz-Zn-DRA"/>
-                                            <constraint firstAttribute="bottom" secondItem="pve-TB-bna" secondAttribute="bottom" constant="8" id="XqJ-ow-Y5s"/>
-                                            <constraint firstItem="pve-TB-bna" firstAttribute="top" secondItem="LoV-l8-2Zv" secondAttribute="bottom" constant="8" id="ZJG-21-tX2"/>
+                                            <constraint firstAttribute="bottom" secondItem="pve-TB-bna" secondAttribute="bottom" constant="10" id="XqJ-ow-Y5s"/>
                                             <constraint firstItem="pve-TB-bna" firstAttribute="width" secondItem="fo0-Fc-WnY" secondAttribute="width" id="sTl-M2-W6M"/>
                                             <constraint firstItem="p5q-t8-q6W" firstAttribute="height" secondItem="LoV-l8-2Zv" secondAttribute="height" id="wfq-cj-5qQ"/>
                                         </constraints>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-Bw-mfb" userLabel="EvolutionView">
-                                        <rect key="frame" x="35.5" y="95" width="304" height="238.5"/>
+                                    <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-Bw-mfb" userLabel="EvolutionView">
+                                        <rect key="frame" x="535.5" y="95" width="304" height="238.5"/>
                                         <subviews>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uQK-FX-Tej">
                                                 <rect key="frame" x="0.0" y="4" width="304" height="20.5"/>
@@ -538,6 +537,7 @@
                                     <constraint firstItem="Ifb-Bw-mfb" firstAttribute="centerY" secondItem="fo0-Fc-WnY" secondAttribute="centerY" id="2N0-Cw-MTS"/>
                                     <constraint firstItem="FOO-p2-awM" firstAttribute="centerX" secondItem="KTe-kS-bz6" secondAttribute="centerX" id="AHi-w4-9ih"/>
                                     <constraint firstItem="fo0-Fc-WnY" firstAttribute="centerX" secondItem="FOO-p2-awM" secondAttribute="centerX" id="CGo-QL-Ke0"/>
+                                    <constraint firstItem="pve-TB-bna" firstAttribute="height" secondItem="m4j-HO-6YI" secondAttribute="height" multiplier="0.2" id="CYg-Tk-F68"/>
                                     <constraint firstItem="KTe-kS-bz6" firstAttribute="centerX" secondItem="m4j-HO-6YI" secondAttribute="centerX" id="FL9-hX-OPm"/>
                                     <constraint firstItem="FOO-p2-awM" firstAttribute="top" secondItem="KTe-kS-bz6" secondAttribute="bottom" constant="8" id="Mwg-vi-rvN"/>
                                     <constraint firstItem="Ifb-Bw-mfb" firstAttribute="width" secondItem="fo0-Fc-WnY" secondAttribute="width" id="N09-dO-54s"/>

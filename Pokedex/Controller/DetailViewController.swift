@@ -107,9 +107,12 @@ class DetailViewController: UIViewController {
         
         self.segment.setTitleTextAttributes( [NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
         
+        self.configureBackGesture()
+        
+        
         getPokemon(url: urlPokeApi)
     }
-      
+                      
     func getPokemon(url: String) {
         service.get(url: url) { result in
             switch result {
@@ -384,8 +387,7 @@ class DetailViewController: UIViewController {
         }
     }
     
-    private func setPokemonAbilities() {
-        let abilities = self.pokemon?.abilities
+    private func setPokemonAbilities() {        
         self.abilitiesCollectionView.reloadData()
     }
     
@@ -399,7 +401,13 @@ class DetailViewController: UIViewController {
         self.shadowView.isHidden = !show
         self.modalView.isHidden = !show
     }
-
+    
+    func configureBackGesture() {
+        let slideDown = UISwipeGestureRecognizer(target: self, action: #selector(dismissView(gesture:)))
+        slideDown.direction = .right
+        view.addGestureRecognizer(slideDown)
+    }
+        
     @IBAction func back(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -421,8 +429,6 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func showAbilityDescription(_ sender: UIButton) {
-        print(self.pokemon?.abilities?[sender.tag].ability?.name)
-        print(self.pokemon?.abilities?[sender.tag].ability?.url)
         if let url = self.pokemon?.abilities?[sender.tag].ability?.url {
             self.getAbilities(url: url, index: sender.tag)
         }
@@ -438,6 +444,11 @@ class DetailViewController: UIViewController {
         }
     }
     
+    @objc func dismissView(gesture: UISwipeGestureRecognizer) {
+        UIView.animate(withDuration: 0.4) {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
     
 }
 

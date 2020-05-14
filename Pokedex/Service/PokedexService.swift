@@ -9,9 +9,7 @@
 import Foundation
 import Alamofire
 
-public class PokedexService {
-    let baseURL = "https://pokeapi.co/api/v2/pokemon"
-    
+public class PokedexService {        
     func get(url: String, completion: @escaping (Result<Data?, HttpError>) -> ()) {
         AF.request(url, method: .get).responseJSON { response in
             if let status = response.response?.statusCode {

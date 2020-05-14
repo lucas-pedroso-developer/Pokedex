@@ -40,6 +40,8 @@ class TypeViewController: UIViewController {
         self.pokemonTypeLabel.backgroundColor = UIColor(named: pokemonType!)
         self.backButton.tintColor = UIColor(named: pokemonType!)
         
+        self.configureBackGesture()
+        
         self.typeTableView.reloadData()
     }
     
@@ -52,8 +54,20 @@ class TypeViewController: UIViewController {
       RSLoadingView.hide(from: view)
     }
     
+    func configureBackGesture() {
+        let slideDown = UISwipeGestureRecognizer(target: self, action: #selector(dismissView(gesture:)))
+        slideDown.direction = .right
+        view.addGestureRecognizer(slideDown)
+    }
+    
     @IBAction func back(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func dismissView(gesture: UISwipeGestureRecognizer) {
+        UIView.animate(withDuration: 0.4) {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
 
