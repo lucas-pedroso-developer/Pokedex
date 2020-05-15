@@ -25,7 +25,10 @@ class DetailViewController: UIViewController {
     var type: TypeDetail?
     var types: [Types]?
     var pokemonArray: [Int: String] = [:]
+    var speciesEvolutionArray: [Species] = []
     var api_url = "https://pokeapi.co/api/v2/pokemon"
+    
+    var specieEvolution: [Chain]?
     
     let service = PokedexService()
     let decoder = JSONDecoder()
@@ -88,6 +91,9 @@ class DetailViewController: UIViewController {
         
         abilitiesCollectionView.delegate = self
         abilitiesCollectionView.dataSource = self
+        
+        evolutionCollectionView.delegate = self
+        evolutionCollectionView.dataSource = self
         
         pokemonImageBackgroundViewHeight.constant = self.view.bounds.height*24/100
         pokemonImageBackgroundViewWidth.constant = self.view.bounds.height*24/100
@@ -182,7 +188,7 @@ class DetailViewController: UIViewController {
             }
         }
     }
-            
+         
     func getPokemonEvolution(url: String) {
         service.get(url: url) { result in
             switch result {
@@ -196,11 +202,27 @@ class DetailViewController: UIViewController {
                         let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
                         self.present(alert, animated: true, completion: nil)
                     }
-                    //self.pokemonActualLabel.text = self.evolutionChain?.chain?.species?.name //atual
-                    //self.pokemonEvolutionLabel.text = self.evolutionChain?.chain?.evolves_to?[0].species?.name //proximo
+                    
+                    /*self.pokemonActualLabel.text = self.evolutionChain?.chain?.species?.name //atual
+                    self.pokemonEvolutionLabel.text = self.evolutionChain?.chain?.evolves_to?[0].species?.name*/ //proximo
                     /*print(self.evolutionChain?.chain?.species?.name) //1 - bulbassauro
                     print(self.evolutionChain?.chain?.evolves_to?[0].species?.name) //2 - ivyssauro
                     print(self.evolutionChain?.chain?.evolves_to?[0].evolves_to?[0].species?.name) // - venussauro*/
+                    
+                    self.speciesEvolutionArray.append((self.evolutionChain?.chain?.species)!)
+                    var evolvesToData = self.evolutionChain?.chain?.evolves_to;
+                    var hasEvolution = true
+                                  
+                    while hasEvolution {
+                        if evolvesToData!.isEmpty {
+                            hasEvolution = false
+                            break
+                        }
+                        self.speciesEvolutionArray.append((evolvesToData?[0].species)!)
+                        evolvesToData = evolvesToData?[0].evolves_to
+                    }
+                    
+                    self.evolutionCollectionView.reloadData()
                 } else {
                     let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
                     self.present(alert, animated: true, completion: nil)
@@ -211,6 +233,59 @@ class DetailViewController: UIViewController {
             }
         }
     }
+    
+    /*func getPokemonEvolution(url: String) {
+        service.get(url: url) { result in
+            switch result {
+            case .success(let data):
+                if data != nil {
+                    do {
+                        if let dataFromJSON = data {
+                            self.evolutionChain = try self.decoder.decode(EvolutionChainDetail.self, from: dataFromJSON)
+                        }
+                    } catch {
+                        let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    self.pokemonActualLabel.text = self.evolutionChain?.chain?.species?.name //atual
+                    self.pokemonEvolutionLabel.text = self.evolutionChain?.chain?.evolves_to?[0].species?.name //proximo
+                    /*print(self.evolutionChain?.chain?.species?.name) //1 - bulbassauro
+                    print(self.evolutionChain?.chain?.evolves_to?[0].species?.name) //2 - ivyssauro
+                    print(self.evolutionChain?.chain?.evolves_to?[0].evolves_to?[0].species?.name) // - venussauro*/
+                    let evoData = self.evolutionChain?.chain;
+                    print(evoData?.evolves_to?.count)
+                    
+                    var evolutionBool = false
+                    var evolutionArray: [EvolutionChainDetail]?
+                    var countt = 0
+                    while !evolutionBool {
+                        if (self.evolutionChain?.chain?.evolves_to!.isEmpty)! {
+                            evolutionBool = true
+                        }
+                        self.specieEvolution?.append((self.evolutionChain?.chain!)!)
+                        
+                        //evolutionArray?.append((self.evolutionChain?.chain!)!)
+                    }
+                    
+                    
+                    
+                    /*angular.forEach(obj, function(value, key, object){
+                            if (key == 'evolves_to' && value != []) {
+                                //from here I can get top level data, but...
+                            }
+                        });*/
+                    
+                    
+                } else {
+                    let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                    self.present(alert, animated: true, completion: nil)
+                }
+            case .failure(let error):
+                let alert = AlertView.showAlert(title: "Erro", message:"Ocorreu um erro, tente mais tarde novamente")
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }*/
     
     func getAbilities(url: String, index: Int) {
         service.get(url: url) { result in
@@ -470,18 +545,17 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
                 return self.types?.count ?? 0
             }
         } else if collectionView.tag == 1 {
-            if self.evolutionChain != nil {
-                return 1
+            if self.speciesEvolutionArray.count > 0 {
+                return self.speciesEvolutionArray.count
             }
         } else if collectionView.tag == 2 {
             if self.pokemon?.abilities != nil {
                 return self.pokemon?.abilities?.count ?? 0
             }
         }
-        
         return 0
     }
-            
+                    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView.tag == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "cell", for: indexPath as IndexPath) as! TypeCollectionViewCell
@@ -499,8 +573,15 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
             self.spritesLabel.backgroundColor = UIColor(named: (self.types?[indexPath.item].type?.name)!)
             return cell
         } else if collectionView.tag == 1 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "evolutionCell", for: indexPath as IndexPath) as! EvolutionCollectionViewCell
-            cell.nameLabel.text = self.evolutionChain?.chain?.evolves_to?[indexPath.item].species?.name!
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "evolutionCell", for: indexPath as IndexPath) as! EvolutionCollectionViewCell            
+            let id = self.speciesEvolutionArray[indexPath.item].url!.split(separator: "/").last!
+            if let url = self.speciesEvolutionArray[indexPath.item].url {
+                let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)
+                if let imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png") {
+                    cell.imageView.kf.setImage(with: imageUrl)
+                }
+            }
+            cell.nameLabel.text = self.speciesEvolutionArray[indexPath.item].name
             return cell
         } else if collectionView.tag == 2 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "abilityCell", for: indexPath as IndexPath) as! AbilitiesCollectionViewCell
@@ -519,7 +600,7 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
         let padding: CGFloat =  50
         if collectionView.tag == 0 {
             return CGSize(width: self.view.bounds.width*20/100, height: self.view.bounds.height*5/100)
-        } else if collectionView.tag == 1 {
+        } else if collectionView.tag == 1 {            
             let collectionViewSize = collectionView.frame.size.width - padding
             return CGSize(width: collectionViewSize/3, height: collectionViewSize/3)
         } else if collectionView.tag == 2 {
