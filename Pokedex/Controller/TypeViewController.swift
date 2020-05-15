@@ -83,7 +83,7 @@ extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:  "cell", for: indexPath as IndexPath) as!  TypeDetailViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier:  "typeDetailCell", for: indexPath as IndexPath) as!  TypeDetailViewCell
         cell.nameLabel.text = self.type?.pokemon?[indexPath.row].pokemon?.name
         let url = (self.type?.pokemon?[indexPath.row].pokemon?.url)!
         let id = Int(url.split(separator: "/").last!)!

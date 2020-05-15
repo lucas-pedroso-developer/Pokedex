@@ -472,6 +472,7 @@
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="psyduck" translatesAutoresizingMaskIntoConstraints="NO" id="4Da-zo-30d">
                                                                             <rect key="frame" x="0.0" y="0.0" width="110" height="108"/>
+                                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </imageView>
                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Psyduck" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xj9-or-4tC">
                                                                             <rect key="frame" x="0.0" y="107" width="110" height="19"/>
@@ -481,7 +482,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstItem="xj9-or-4tC" firstAttribute="centerX" secondItem="UMA-my-0UL" secondAttribute="centerX" id="CZj-Wd-KdJ"/>
                                                                         <constraint firstItem="4Da-zo-30d" firstAttribute="top" secondItem="UMA-my-0UL" secondAttribute="top" id="IIE-E7-JXg"/>
@@ -768,7 +769,7 @@
                                 <rect key="frame" x="16" y="88" width="343" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="evolutionCell" rowHeight="72" id="ZM0-fm-m9Z" customClass="TypeDetailViewCell" customModule="Pokedex" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="typeDetailCell" rowHeight="72" id="ZM0-fm-m9Z" customClass="TypeDetailViewCell" customModule="Pokedex" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZM0-fm-m9Z" id="cIW-mo-W2q">
