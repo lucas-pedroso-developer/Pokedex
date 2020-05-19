@@ -32,17 +32,17 @@ class TypeViewController: UIViewController {
         super.viewDidLoad()
 
         self.showLoadingHub()
-        
-        self.typeTableView.delegate = self
-        self.typeTableView.dataSource = self
-        
+        self.setDelegate()
         self.pokemonTypeLabel.text = pokemonType!
         self.pokemonTypeLabel.backgroundColor = UIColor(named: pokemonType!)
         self.backButton.tintColor = UIColor(named: pokemonType!)
-        
         self.configureBackGesture()
-        
         self.typeTableView.reloadData()
+    }
+    
+    func setDelegate() {
+        self.typeTableView.delegate = self
+        self.typeTableView.dataSource = self
     }
     
     func showLoadingHub() {
@@ -87,11 +87,14 @@ extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.nameLabel.text = self.type?.pokemon?[indexPath.row].pokemon?.name
         let url = (self.type?.pokemon?[indexPath.row].pokemon?.url)!
         let id = Int(url.split(separator: "/").last!)!
-        let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!
+        let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!        
         cell.typeImageView.kf.setImage(with: imageUrl)
         self.hideLoadingHub()
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.view.bounds.height*10/100
+    }
     
 }

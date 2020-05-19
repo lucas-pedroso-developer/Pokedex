@@ -19,7 +19,6 @@ class MyCollectionViewCell: UICollectionViewCell {
 class MainViewController: UIViewController, UISearchResultsUpdating {    
         
     var pokemons: Pokemons?
-    var api_url = "https://pokeapi.co/api/v2/pokemon"
     var pokemonArray = [Results?]()
     var pokemonArrayFiltered = [Results?]()
     var searchController: UISearchController!
@@ -33,11 +32,9 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
         super.viewDidLoad()
         
         if isInternetAvailable() {
-            getPokemons(url: api_url)
+            getPokemons(url: Constants.API_URL)
         } else {
-            DispatchQueue.main.async {
-                self.showAlert(title: "Erro", message: "Sem conexão com a Internet!")
-            }
+            self.showAlert(title: "Erro", message: "Sem conexão com a Internet!")
         }
     }
             
@@ -76,14 +73,7 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
     func hideLoadingHub() {
       RSLoadingView.hide(from: view)
     }
-    
-    func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-                  
-        
+     
 }
 
 class SearchBarView: UICollectionReusableView {
@@ -114,8 +104,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
                 if isInternetAvailable() {
                     self.getPokemons(url: (self.pokemons?.next!)!)
                 } else {
-                    let alert = AlertView.showAlert(title: "Erro", message:"Sem conexão com a Internet!")
-                    self.present(alert, animated: true, completion: nil)
+                    self.showAlert(title: "Erro", message:"Sem conexão com a Internet!")
                 }
                 
             }
@@ -128,8 +117,8 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         if searchActive {
             cell.myLabel.text = self.pokemonArrayFiltered[indexPath.item]?.name
             let url = (self.pokemonArrayFiltered[indexPath.item]?.url)!
-            let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)
-            let imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!           
+            let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)            
+            let imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
             cell.imageView.kf.setImage(with: imageUrl)
         } else {
             if let name = self.pokemonArray[indexPath.item]?.name {
