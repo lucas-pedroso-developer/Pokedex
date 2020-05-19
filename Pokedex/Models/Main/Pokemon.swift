@@ -1,17 +1,18 @@
 //
-//  Pokemons.swift
+//  PokemonParser.swift
 //  Pokedex
 //
-//  Created by Lucas Daniel on 28/04/20.
+//  Created by Lucas Daniel on 17/05/20.
 //  Copyright © 2020 Lucas. All rights reserved.
 //
+
 import Foundation
 
-public struct Pokemons : Model {
+public struct PokemonsParser : Model {
     let count : Int?
     let next : String?
     let previous : String?
-    let results : [Results]?
+    let results : [ResultsParser]?
 
     enum CodingKeys: String, CodingKey {
 
@@ -26,12 +27,12 @@ public struct Pokemons : Model {
         count = try values.decodeIfPresent(Int.self, forKey: .count)
         next = try values.decodeIfPresent(String.self, forKey: .next)
         previous = try values.decodeIfPresent(String.self, forKey: .previous)
-        results = try values.decodeIfPresent([Results].self, forKey: .results)
+        results = try values.decodeIfPresent([ResultsParser].self, forKey: .results)
     }
 
 }
 
-public struct Results : Model {
+public struct ResultsParser : Model {
     let name : String?
     let url : String?
         

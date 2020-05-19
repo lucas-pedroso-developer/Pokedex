@@ -86,7 +86,24 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+                
+        self.setDelegates()
+        self.setConstraints()
+        self.setCornerRadius()
+        
+        self.segment.setTitleTextAttributes( [NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+        self.configureBackGesture()
+        
+        if isInternetAvailable() {
+            getPokemon(url: "https://pokeapi.co/api/v2/pokemon/\(self.id)")
+        } else {
+            DispatchQueue.main.async {
+                self.showAlert(title: "Erro", message: "Sem conexão com a Internet!")
+            }
+        }                
+    }
+    
+    func setDelegates() {
         typeCollectionView.delegate = self
         typeCollectionView.dataSource = self
         
@@ -95,29 +112,32 @@ class DetailViewController: UIViewController {
         
         evolutionCollectionView.delegate = self
         evolutionCollectionView.dataSource = self
+    }
+    
+    func setConstraints() {
+        self.pokemonImageBackgroundViewHeight.constant = self.view.bounds.height*24/100
+        self.pokemonImageBackgroundViewWidth.constant = self.view.bounds.height*24/100
+
+    }
+    
+    func setCornerRadius() {
+        self.pokemonImageBackgroundView.layer.cornerRadius = self.view.bounds.height*12/100
         
-        pokemonImageBackgroundViewHeight.constant = self.view.bounds.height*24/100
-        pokemonImageBackgroundViewWidth.constant = self.view.bounds.height*24/100
-        pokemonImageBackgroundView.layer.cornerRadius = self.view.bounds.height*12/100
-                        
         self.whiteBackgroundView.layer.cornerRadius = self.view.bounds.height*4/100
         self.whiteBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         self.modalView.layer.cornerRadius = self.view.bounds.height*4/100
         self.modalView.layer.cornerRadius = self.view.bounds.height*4/100
-                
-        let urlPokeApi = "https://pokeapi.co/api/v2/pokemon/\(self.id)"
         
         self.abilityLabel.layer.cornerRadius = self.view.bounds.height*1/100
         self.dataDescriptionLabel.layer.cornerRadius = self.view.bounds.height*1/100
         self.spritesLabel.layer.cornerRadius = self.view.bounds.height*1/100
-        
-        self.segment.setTitleTextAttributes( [NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
-        
-        self.configureBackGesture()
-        
-        
-        getPokemon(url: urlPokeApi)
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
                       
     func getPokemon(url: String) {
@@ -139,7 +159,12 @@ class DetailViewController: UIViewController {
                     self.setPokemonAbilities()
                     self.setPokemonTypes()
                     if let specieUrl = self.pokemon?.species?.url {
-                        self.getSpecie(url: specieUrl)
+                        if self.isInternetAvailable() {
+                            self.getSpecie(url: specieUrl)
+                        } else {
+                            let alert = AlertView.showAlert(title: "Erro", message:"Sem conexão com a Internet!")
+                            self.present(alert, animated: true, completion: nil)
+                        }
                     }
                 } else {
                     let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
@@ -177,7 +202,13 @@ class DetailViewController: UIViewController {
                     }
                                         
                     if let url = self.specie?.evolution_chain?.url {
-                        self.getPokemonEvolution(url: url)
+                        if self.isInternetAvailable() {
+                            self.getPokemonEvolution(url: url)
+                        } else {
+                            let alert = AlertView.showAlert(title: "Erro", message:"Sem conexão com a Internet!")
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        
                     }
                 } else {
                     let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
@@ -204,8 +235,7 @@ class DetailViewController: UIViewController {
                         self.present(alert, animated: true, completion: nil)
                     }
                     if let evolves = self.evolutionChain?.chain?.evolves_to {
-                        self.speciesEvolutionArray.append((self.evolutionChain?.chain?.species)!)
-                        //var evolvesToData = self.evolutionChain?.chain?.evolves_to;
+                        self.speciesEvolutionArray.append((self.evolutionChain?.chain?.species)!)                        
                         var evolvesToData = evolves
                         var hasEvolution = true
                                       
@@ -455,7 +485,12 @@ class DetailViewController: UIViewController {
     
     @IBAction func showAbilityDescription(_ sender: UIButton) {
         if let url = self.pokemon?.abilities?[sender.tag].ability?.url {
-            self.getAbilities(url: url, index: sender.tag)
+            if self.isInternetAvailable() {
+                self.getAbilities(url: url, index: sender.tag)
+            } else {
+                let alert = AlertView.showAlert(title: "Erro", message:"Sem conexão com a Internet!")
+                self.present(alert, animated: true, completion: nil)
+            }
         }
     }
     
@@ -465,7 +500,12 @@ class DetailViewController: UIViewController {
     
     @IBAction func showPokemonTypes(_ sender: UIButton) {
         if let url = self.pokemon?.types?[sender.tag].type?.url {
-            self.getTypesPokemon(url: url, index: sender.tag)
+            if self.isInternetAvailable() {
+                self.getTypesPokemon(url: url, index: sender.tag)
+            } else {
+                let alert = AlertView.showAlert(title: "Erro", message:"Sem conexão com a Internet!")
+                self.present(alert, animated: true, completion: nil)
+            }
         }
     }
     

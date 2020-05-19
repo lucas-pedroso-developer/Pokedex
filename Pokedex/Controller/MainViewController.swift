@@ -24,7 +24,7 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
     var pokemonArrayFiltered = [Results?]()
     var searchController: UISearchController!
     var searchActive : Bool = false
-    
+            
     let service = PokedexService()
             
     @IBOutlet weak var collectionView: UICollectionView!
@@ -32,7 +32,13 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getPokemons(url: api_url)
+        if isInternetAvailable() {
+            getPokemons(url: api_url)
+        } else {
+            DispatchQueue.main.async {
+                self.showAlert(title: "Erro", message: "Sem conexão com a Internet!")
+            }
+        }
     }
             
     func getPokemons(url: String) {
@@ -49,17 +55,14 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
                             self.collectionView.reloadData()
                        }
                    } catch {
-                       let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum Pokemon")
-                       self.present(alert, animated: true, completion: nil)
+                        self.showAlert(title: "Erro", message:"Não foi retornado nenhum Pokemon")
                    }
                 } else {
-                    let alert = AlertView.showAlert(title: "Erro", message:"Não foi retornado nenhum Pokemon")
-                    self.present(alert, animated: true, completion: nil)
+                    self.showAlert(title: "Erro", message:"Não foi retornado nenhum Pokemon")
                     self.hideLoadingHub()
                 }
             case .failure(let error):
-                let alert = AlertView.showAlert(title: "Erro", message:"Ocorreu um erro, tente mais tarde novamente!")
-                self.present(alert, animated: true, completion: nil)
+                self.showAlert(title: "Erro", message: "Ocorreu um erro, tente mais tarde novamente!")
                 self.hideLoadingHub()
             }
         }
@@ -74,11 +77,11 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
       RSLoadingView.hide(from: view)
     }
     
-    /*func showAlert(title: String, message: String) {
+    func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
-    }*/
+    }
                   
         
 }
@@ -88,8 +91,8 @@ class SearchBarView: UICollectionReusableView {
 }
 
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         if(searchActive) {
             return self.pokemonArrayFiltered.count
         } else if self.pokemons?.results != nil {
@@ -108,7 +111,13 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         if !searchActive {
             self.hideLoadingHub()
             if indexPath.item == self.pokemonArray.count - 4 && self.pokemonArray.count < (self.pokemons?.count)! {
-                self.getPokemons(url: (self.pokemons?.next!)!)
+                if isInternetAvailable() {
+                    self.getPokemons(url: (self.pokemons?.next!)!)
+                } else {
+                    let alert = AlertView.showAlert(title: "Erro", message:"Sem conexão com a Internet!")
+                    self.present(alert, animated: true, completion: nil)
+                }
+                
             }
         }
     }
