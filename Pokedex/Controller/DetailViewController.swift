@@ -27,6 +27,7 @@ class DetailViewController: UIViewController {
     var pokemonArray: [Int: String] = [:]
     var speciesEvolutionArray: [Species] = []
     var pokemonMainColor: UIColor?
+    var showingGif: Bool = false
     
     var specieEvolution: [Chain]?
     
@@ -82,6 +83,7 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var imageSlide: ImageSlideshow!
     @IBOutlet weak var spritesLabel: UILabel!
+    @IBOutlet weak var gifButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -324,7 +326,7 @@ class DetailViewController: UIViewController {
     private func setPokemonImage() {
         let url = URL(string: "\(Constants.IMAGE_API_URL)\(String(format: "%03d", id)).png")!
         self.pokemonImageView.kf.setImage(with: url)
-        
+                
         var spritesUrlArray: [KingfisherSource] = []
         
         if let front_default = self.pokemon?.sprites?.front_default {
@@ -481,6 +483,23 @@ class DetailViewController: UIViewController {
         }
     }
     
+    @IBAction func showGif(_ sender: Any) {
+        showingGif = !showingGif
+        if showingGif {
+            if let name = self.pokemon?.name {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    let url = URL(string: "http://play.pokemonshowdown.com/sprites/xyani/\(name).gif")!
+                    self.pokemonImageView.kf.setImage(with: url)
+                    self.gifButton.title = "Imagem"
+                }
+            }
+        } else {
+            let url = URL(string: "\(Constants.IMAGE_API_URL)\(String(format: "%03d", id)).png")!
+            self.pokemonImageView.kf.setImage(with: url)
+            self.gifButton.title = "Gif"
+        }
+    }
+    
     @objc func dismissView(gesture: UISwipeGestureRecognizer) {
         UIView.animate(withDuration: 0.4) {
             self.dismiss(animated: true, completion: nil)
@@ -534,6 +553,7 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
             self.abilityLabel.backgroundColor = self.pokemonMainColor
             self.dataDescriptionLabel.backgroundColor = self.pokemonMainColor
             self.spritesLabel.backgroundColor = self.pokemonMainColor
+            self.gifButton.tintColor = self.pokemonMainColor
             return cell
         } else if collectionView.tag == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "evolutionCell", for: indexPath as IndexPath) as! EvolutionCollectionViewCell            
@@ -544,7 +564,9 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
                     cell.imageView.kf.setImage(with: imageUrl)
                 }
             }
-            cell.nameLabel.text = self.speciesEvolutionArray[indexPath.item].name
+            if let name = self.speciesEvolutionArray[indexPath.item].name {
+                cell.nameLabel.text = name
+            }
             cell.nameLabel.backgroundColor = self.pokemonMainColor
             
             cell.nameLabel.layer.borderColor = UIColor.darkGray.cgColor

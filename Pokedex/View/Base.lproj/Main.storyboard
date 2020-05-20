@@ -173,6 +173,11 @@
                                                 <action selector="back:" destination="R7t-bC-8Uf" id="PI8-GY-aG8"/>
                                             </connections>
                                         </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Gif" id="h3Y-qf-baK">
+                                            <connections>
+                                                <action selector="showGif:" destination="R7t-bC-8Uf" id="UJA-cy-Pd4"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -451,7 +456,7 @@
                                         <rect key="frame" x="35.5" y="95" width="304" height="238.5"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hI6-TW-vzJ">
-                                                <rect key="frame" x="0.0" y="47.5" width="304" height="143.5"/>
+                                                <rect key="frame" x="0.0" y="2.5" width="304" height="233.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HCk-o8-Oiz">
                                                     <size key="itemSize" width="128" height="128"/>
@@ -470,8 +475,8 @@
                                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UMA-my-0UL">
                                                                     <rect key="frame" x="0.0" y="0.0" width="110" height="128"/>
                                                                     <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="psyduck" translatesAutoresizingMaskIntoConstraints="NO" id="4Da-zo-30d">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="108"/>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="psyduck" translatesAutoresizingMaskIntoConstraints="NO" id="4Da-zo-30d">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="105"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </imageView>
                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Psyduck" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xj9-or-4tC">
@@ -514,7 +519,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="hI6-TW-vzJ" firstAttribute="centerX" secondItem="Ifb-Bw-mfb" secondAttribute="centerX" id="Nzh-YK-sAc"/>
-                                            <constraint firstItem="hI6-TW-vzJ" firstAttribute="height" secondItem="Ifb-Bw-mfb" secondAttribute="height" multiplier="0.6" id="VLI-xu-J1g"/>
+                                            <constraint firstItem="hI6-TW-vzJ" firstAttribute="height" secondItem="Ifb-Bw-mfb" secondAttribute="height" multiplier="0.98" id="VLI-xu-J1g"/>
                                             <constraint firstItem="hI6-TW-vzJ" firstAttribute="width" secondItem="Ifb-Bw-mfb" secondAttribute="width" id="YRH-bb-kAy"/>
                                             <constraint firstItem="hI6-TW-vzJ" firstAttribute="centerY" secondItem="Ifb-Bw-mfb" secondAttribute="centerY" id="fAk-OW-ex8"/>
                                         </constraints>
@@ -707,6 +712,7 @@
                         <outlet property="descriptionLabel" destination="Yad-f5-B6V" id="R6c-mz-8oQ"/>
                         <outlet property="evolutionCollectionView" destination="hI6-TW-vzJ" id="ajj-Hb-Mr9"/>
                         <outlet property="evolutionView" destination="Ifb-Bw-mfb" id="zow-by-Dkh"/>
+                        <outlet property="gifButton" destination="h3Y-qf-baK" id="D1q-wt-1CL"/>
                         <outlet property="heightLabel" destination="QWI-et-PT3" id="0wx-A3-GNF"/>
                         <outlet property="hpLabel" destination="PzG-9K-a0n" id="YGq-4M-k9v"/>
                         <outlet property="imageSlide" destination="zlU-4h-bAe" id="73Z-nO-Ftp"/>
