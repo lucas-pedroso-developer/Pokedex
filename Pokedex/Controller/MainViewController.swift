@@ -31,12 +31,8 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if isInternetAvailable() {
-            getPokemons(url: Constants.API_URL)
-        } else {
-            self.showAlert(title: "Erro", message: "Sem conexão com a Internet!")
-        }
+                
+        getPokemons(url: Constants.API_URL)        
     }
             
     func getPokemons(url: String) {
@@ -45,22 +41,15 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
             switch result {
             case .success(let data):
                 if data != nil {
-                    let decoder = JSONDecoder()
-                    do {
-                       if let dataFromJSON = data {
-                            self.pokemons = try decoder.decode(Pokemons.self, from: dataFromJSON)
-                            self.pokemonArray.append(contentsOf: (self.pokemons?.results)!)
-                            self.collectionView.reloadData()
-                       }
-                   } catch {
-                        self.showAlert(title: "Erro", message:"Não foi retornado nenhum Pokemon")
-                   }
+                    self.pokemons = data?.toModel()
+                    self.pokemonArray.append(contentsOf: (self.pokemons?.results)!)
+                    self.collectionView.reloadData()
                 } else {
-                    self.showAlert(title: "Erro", message:"Não foi retornado nenhum Pokemon")
+                    self.showAlert(title: Messages.ERROR_TITLE, message: Messages.NOT_RETURN)
                     self.hideLoadingHub()
                 }
             case .failure(let error):
-                self.showAlert(title: "Erro", message: "Ocorreu um erro, tente mais tarde novamente!")
+                self.showAlert(title: Messages.ERROR_TITLE, message: "Ocorreu o seguinte erro - \(error) - Tente mais tarde novamente!")
                 self.hideLoadingHub()
             }
         }
@@ -102,12 +91,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         if !searchActive {
             self.hideLoadingHub()
             if indexPath.item == self.pokemonArray.count - 4 && self.pokemonArray.count < (self.pokemons?.count)! {
-                if isInternetAvailable() {
-                    self.getPokemons(url: (self.pokemons?.next!)!)
-                } else {
-                    self.showAlert(title: "Erro", message:"Sem conexão com a Internet!")
-                }
-                
+                self.getPokemons(url: (self.pokemons?.next!)!)
             }
         }
     }

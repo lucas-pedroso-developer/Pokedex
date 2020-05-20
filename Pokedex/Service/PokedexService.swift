@@ -11,8 +11,6 @@ import Alamofire
 import CoreData
 
 public class PokedexService {
-        
-        
     func get(url: String, completion: @escaping (Result<Data?, HttpError>) -> ()) {
         AF.request(url, method: .get).responseJSON { response in
             if let status = response.response?.statusCode {
@@ -35,7 +33,5 @@ public class PokedexService {
             }
         }
     }
-       
-    
 }
 

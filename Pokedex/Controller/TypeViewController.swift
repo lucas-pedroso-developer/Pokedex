@@ -88,8 +88,7 @@ extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
         let url = (self.type?.pokemon?[indexPath.row].pokemon?.url)!
         let id = Int(url.split(separator: "/").last!)!
         let imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!
-        //let imageUrl = URL(string: "https://www.pkparaiso.com/imagenes/sol-luna/sprites/animados/rowlet.gif")!
-        
+                
         cell.typeImageView.kf.setImage(with: imageUrl)
         self.hideLoadingHub()
         return cell

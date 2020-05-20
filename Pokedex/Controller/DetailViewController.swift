@@ -94,13 +94,8 @@ class DetailViewController: UIViewController {
         
         self.segment.setTitleTextAttributes( [NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
         self.configureBackGesture()
-        
-        if isInternetAvailable() {            
-            getPokemon(url: "\(Constants.API_URL)/\(self.id)")
-        } else {
-            self.showAlert(title: "Erro", message: "Sem conexão com a Internet!")
-            
-        }                
+                
+        getPokemon(url: "\(Constants.API_URL)/\(self.id)")
     }
     
     func setDelegates() {
@@ -138,31 +133,21 @@ class DetailViewController: UIViewController {
         service.get(url: url) { result in
             switch result {
             case .success(let data):
-                if data != nil {
-                    do {
-                        if let dataFromJSON = data {
-                            self.pokemon = try self.decoder.decode(PokemonDetail.self, from: dataFromJSON)
-                        }
-                    } catch {
-                        self.showAlert(title: "Erro", message:"Não foi retornado o Pokemon")
-                    }
+                if data != nil {                    
+                    self.pokemon = data?.toModel()
                     self.setPokemonImage()
                     self.setPokemonData()
                     self.setPokemonStatus()
                     self.setPokemonAbilities()
                     self.setPokemonTypes()
                     if let specieUrl = self.pokemon?.species?.url {
-                        if self.isInternetAvailable() {
-                            self.getSpecie(url: specieUrl)
-                        } else {
-                            self.showAlert(title: "Erro", message:"Sem conexão com a Internet!")
-                        }
+                        self.getSpecie(url: specieUrl)
                     }
                 } else {
-                    self.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                    self.showAlert(title: Messages.ERROR_TITLE, message: Messages.NOT_RETURN)
                 }
             case .failure(let error):
-                self.showAlert(title: "Erro", message:"Ocorreu um erro, tente mais tarde novamente")
+                self.showAlert(title: Messages.ERROR_TITLE, message: "\(Messages.GENERIC_ERROR) - \n\(error)")
             }
         }
     }
@@ -172,37 +157,25 @@ class DetailViewController: UIViewController {
             switch result {
             case .success(let data):
                 if data != nil {
-                    do {
-                        if let dataFromJSON = data {
-                            self.specie = try self.decoder.decode(SpecieDetail.self, from: dataFromJSON)
-                        }
-                    } catch {
-                        self.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
-                    }                                                            
-                    
+                    self.specie = data?.toModel()
                     if let flavor_text_entries = self.specie?.flavor_text_entries {
                         for flavor in flavor_text_entries {
                             if (flavor.language?.name?.elementsEqual("en"))! && ((flavor.language?.name?.elementsEqual("alpha-sapphire")) != nil) {
                                 if let text = flavor.flavor_text {
-                                    self.descriptionLabel.text = flavor.flavor_text?.replacingOccurrences(of: "\n", with: " ")
+                                    self.descriptionLabel.text = text.replacingOccurrences(of: "\n", with: " ")
                                 }
                             }
                         }
                     }
                                         
                     if let url = self.specie?.evolution_chain?.url {
-                        if self.isInternetAvailable() {
-                            self.getPokemonEvolution(url: url)
-                        } else {
-                            self.showAlert(title: "Erro", message:"Sem conexão com a Internet!")
-                        }
-                        
+                        self.getPokemonEvolution(url: url)
                     }
                 } else {
-                    self.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                    self.showAlert(title: Messages.ERROR_TITLE, message: Messages.NOT_RETURN)
                 }
             case .failure(let error):
-                self.showAlert(title: "Erro", message:"Ocorreu um erro, tente mais tarde novamente")
+                self.showAlert(title: Messages.ERROR_TITLE, message: "\(Messages.GENERIC_ERROR) - \n\(error)")
             }
         }
     }
@@ -212,13 +185,7 @@ class DetailViewController: UIViewController {
             switch result {
             case .success(let data):
                 if data != nil {
-                    do {
-                        if let dataFromJSON = data {
-                            self.evolutionChain = try self.decoder.decode(EvolutionChainDetail.self, from: dataFromJSON)
-                        }
-                    } catch {
-                        self.showAlert(title: "Aviso", message:"Este pokemon não tem evolução!")
-                    }
+                    self.evolutionChain = data?.toModel()
                     if let evolves = self.evolutionChain?.chain?.evolves_to {
                         self.speciesEvolutionArray.append((self.evolutionChain?.chain?.species)!)                        
                         var evolvesToData = evolves
@@ -242,10 +209,10 @@ class DetailViewController: UIViewController {
                         self.evolutionCollectionView.reloadData()
                     }
                 } else {
-                    self.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                    self.showAlert(title: Messages.ERROR_TITLE, message: Messages.NOT_RETURN)
                 }
             case .failure(let error):
-                self.showAlert(title: "Erro", message:"Ocorreu um erro, tente mais tarde novamente")
+                self.showAlert(title: Messages.ERROR_TITLE, message: "\(Messages.GENERIC_ERROR) - \n\(error)")
             }
         }
     }
@@ -255,13 +222,7 @@ class DetailViewController: UIViewController {
             switch result {
             case .success(let data):
                 if data != nil {
-                    do {
-                        if let dataFromJSON = data {
-                            self.ability = try self.decoder.decode(AbilitiesDetail.self, from: dataFromJSON)
-                        }
-                    } catch {
-                        self.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
-                    }
+                    self.ability = data?.toModel()
                     if let flavor_text_entries = self.ability?.flavor_text_entries {
                         for flavor in flavor_text_entries {                            
                             if (flavor.language?.name?.elementsEqual("en"))! && ((flavor.version_group?.name?.elementsEqual("omega-ruby-alpha-sapphire")) != nil) {
@@ -277,10 +238,10 @@ class DetailViewController: UIViewController {
                                                             
                     
                 } else {
-                    self.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                    self.showAlert(title: Messages.ERROR_TITLE, message: Messages.NOT_RETURN)
                 }
             case .failure(let error):
-                self.showAlert(title: "Erro", message:"Ocorreu um erro, tente mais tarde novamente")
+                self.showAlert(title: Messages.ERROR_TITLE, message: "\(Messages.GENERIC_ERROR) - \n\(error)")
             }
         }
     }
@@ -290,26 +251,18 @@ class DetailViewController: UIViewController {
             switch result {
             case .success(let data):
                 if data != nil {
-                    do {
-                        if let dataFromJSON = data {
-                            self.type = try self.decoder.decode(TypeDetail.self, from: dataFromJSON)
-                        }
-                    } catch {
-                        self.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
-                    }
-                    
+                    self.type = data?.toModel()
                     let newViewController = self.storyboard?.instantiateViewController(withIdentifier: "TypeViewController") as! TypeViewController
                     newViewController.type  = self.type
                     newViewController.pokemonType = (self.types?[index].type?.name)!
                     newViewController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-                    newViewController.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal                                
+                    newViewController.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
                     self.present(newViewController, animated: true, completion: nil)
-                                                            
                 } else {
-                    self.showAlert(title: "Erro", message:"Não foi retornado nenhum dado")
+                    self.showAlert(title: Messages.ERROR_TITLE, message: Messages.NOT_RETURN)
                 }
             case .failure(let error):
-                self.showAlert(title: "Erro", message:"Ocorreu um erro, tente mais tarde novamente")
+                self.showAlert(title: Messages.ERROR_TITLE, message: "\(Messages.GENERIC_ERROR) - \n\(error)")
             }
         }
     }
@@ -413,7 +366,7 @@ class DetailViewController: UIViewController {
                     self.speedLabel.text = "\(base_stat)"
                 }
             } else {
-                print("Erro nos status")
+                self.showAlert(title: Messages.ERROR_TITLE, message: Messages.GENERIC_ERROR)
             }
         }
     }
@@ -461,11 +414,7 @@ class DetailViewController: UIViewController {
     
     @IBAction func showAbilityDescription(_ sender: UIButton) {
         if let url = self.pokemon?.abilities?[sender.tag].ability?.url {
-            if self.isInternetAvailable() {
-                self.getAbilities(url: url, index: sender.tag)
-            } else {
-                self.showAlert(title: "Erro", message:"Sem conexão com a Internet!")
-            }
+            self.getAbilities(url: url, index: sender.tag)
         }
     }
     
@@ -475,11 +424,7 @@ class DetailViewController: UIViewController {
     
     @IBAction func showPokemonTypes(_ sender: UIButton) {
         if let url = self.pokemon?.types?[sender.tag].type?.url {
-            if self.isInternetAvailable() {
-                self.getTypesPokemon(url: url, index: sender.tag)
-            } else {
-                self.showAlert(title: "Erro", message:"Sem conexão com a Internet!")
-            }
+            self.getTypesPokemon(url: url, index: sender.tag)            
         }
     }
     
@@ -556,8 +501,7 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
             self.gifButton.tintColor = self.pokemonMainColor
             return cell
         } else if collectionView.tag == 1 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "evolutionCell", for: indexPath as IndexPath) as! EvolutionCollectionViewCell            
-            let id = self.speciesEvolutionArray[indexPath.item].url!.split(separator: "/").last!
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "evolutionCell", for: indexPath as IndexPath) as! EvolutionCollectionViewCell
             if let url = self.speciesEvolutionArray[indexPath.item].url {
                 let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)
                 if let imageUrl = URL(string: "\(Constants.IMAGE_API_URL)\(id).png") {
