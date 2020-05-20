@@ -11,10 +11,9 @@ public struct Pokemon : Model {
     let name : String?
     let url : String?
 
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
-        url = try values.decodeIfPresent(String.self, forKey: .url)
+    public init(name : String?, url : String?) {
+        self.name = name
+        self.url = url
     }
 
 }

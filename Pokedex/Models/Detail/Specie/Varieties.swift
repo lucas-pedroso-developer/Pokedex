@@ -11,10 +11,9 @@ public struct Varieties : Model {
     let is_default : Bool?
     let pokemon : Pokemon?
 
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        is_default = try values.decodeIfPresent(Bool.self, forKey: .is_default)
-        pokemon = try values.decodeIfPresent(Pokemon.self, forKey: .pokemon)
+    public init(is_default : Bool?, pokemon : Pokemon?) {
+        self.is_default = is_default
+        self.pokemon = pokemon
     }
 
 }

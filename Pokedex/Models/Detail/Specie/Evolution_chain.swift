@@ -10,9 +10,8 @@ import Foundation
 public struct Evolution_chain : Model {
     let url : String?
 
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        url = try values.decodeIfPresent(String.self, forKey: .url)
+    public init(url : String?) {
+        self.url = url
     }
 
 }

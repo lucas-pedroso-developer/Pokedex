@@ -20,17 +20,17 @@ public struct PokemonDetail : Model {
     let species : Species?
     let sprites : Sprites?
         
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(Int.self, forKey: .id)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
-        height = try values.decodeIfPresent(Int.self, forKey: .height)
-        weight = try values.decodeIfPresent(Int.self, forKey: .weight)
-        stats = try values.decodeIfPresent([Stats].self, forKey: .stats)
-        abilities = try values.decodeIfPresent([Abilities].self, forKey: .abilities)
-        types = try values.decodeIfPresent([Types].self, forKey: .types)
-        species = try values.decodeIfPresent(Species.self, forKey: .species)
-        sprites = try values.decodeIfPresent(Sprites.self, forKey: .sprites)
+    public init(id : Int?, name : String?, height : Int?, weight : Int?, stats : [Stats]?, abilities : [Abilities]?,
+              types : [Types]?, species : Species?, sprites : Sprites?) {
+        self.id = id
+        self.name = name
+        self.height = height
+        self.weight = weight
+        self.stats = stats
+        self.abilities = abilities
+        self.types = types
+        self.species = species
+        self.sprites = sprites
                 
     }
 

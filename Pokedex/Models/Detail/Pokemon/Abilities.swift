@@ -12,12 +12,11 @@ public struct Abilities : Model {
     let ability : Ability?
     let is_hidden : Bool?
     let slot : Int?
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        ability = try values.decodeIfPresent(Ability.self, forKey: .ability)
-        is_hidden = try values.decodeIfPresent(Bool.self, forKey: .is_hidden)
-        slot = try values.decodeIfPresent(Int.self, forKey: .slot)
+    
+    public init(ability : Ability?, is_hidden : Bool?, slot : Int?) {
+        self.ability = ability
+        self.is_hidden = is_hidden
+        self.slot = slot
     }
 
 }

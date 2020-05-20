@@ -12,10 +12,9 @@ public struct Chain : Model {
     let evolves_to : [Evolves_to]?
     let species : Species?
 
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        evolves_to = try values.decodeIfPresent([Evolves_to].self, forKey: .evolves_to)        
-        species = try values.decodeIfPresent(Species.self, forKey: .species)
+    public init(evolves_to : [Evolves_to]?, species : Species?) {
+        self.evolves_to = evolves_to
+        self.species = species
     }
 
 }

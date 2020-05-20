@@ -13,11 +13,10 @@ public struct EvolutionChainDetail : Model {
     let chain : Chain?
     let id : Int?
 
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        baby_trigger_item = try values.decodeIfPresent(String.self, forKey: .baby_trigger_item)
-        chain = try values.decodeIfPresent(Chain.self, forKey: .chain)
-        id = try values.decodeIfPresent(Int.self, forKey: .id)
+    public init(baby_trigger_item : String?, chain : Chain?, id : Int?) {
+        self.baby_trigger_item = baby_trigger_item
+        self.chain = chain
+        self.id = id
     }
 
 }

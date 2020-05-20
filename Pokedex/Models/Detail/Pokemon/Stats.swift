@@ -13,11 +13,10 @@ public struct Stats : Model {
     let effort : Int?
     let stat : Stat?
 
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        base_stat = try values.decodeIfPresent(Int.self, forKey: .base_stat)
-        effort = try values.decodeIfPresent(Int.self, forKey: .effort)
-        stat = try values.decodeIfPresent(Stat.self, forKey: .stat)
+    public init(base_stat : Int?, effort : Int?, stat : Stat?) {
+        self.base_stat = base_stat
+        self.effort = effort
+        self.stat = stat
     }
 
 }

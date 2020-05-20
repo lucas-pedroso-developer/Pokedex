@@ -13,11 +13,10 @@ public struct Ability_Flavor_text_Entries : Model {
     let language : Language?
     let version_group : Version_group?
 
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        flavor_text = try values.decodeIfPresent(String.self, forKey: .flavor_text)
-        language = try values.decodeIfPresent(Language.self, forKey: .language)
-        version_group = try values.decodeIfPresent(Version_group.self, forKey: .version_group)
+    public init(flavor_text : String?, language : Language?, version_group : Version_group?) {
+        self.flavor_text = flavor_text
+        self.language = language
+        self.version_group = version_group
     }
 
 }

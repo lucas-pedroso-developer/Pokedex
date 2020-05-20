@@ -8,42 +8,15 @@
 import Foundation
 
 public struct Pokemons : Model {
-    let count : Int?
-    let next : String?
-    let previous : String?
-    let results : [Results]?
+    var count : Int?
+    var next : String?
+    var previous : String?
+    var results : [Results]?
 
-    enum CodingKeys: String, CodingKey {
-
-        case count = "count"
-        case next = "next"
-        case previous = "previous"
-        case results = "results"
+    public init(count: Int?, next: String, previous: String, results: [Results]?) {
+        self.count = count
+        self.next = next
+        self.previous = previous
+        self.results = results
     }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        count = try values.decodeIfPresent(Int.self, forKey: .count)
-        next = try values.decodeIfPresent(String.self, forKey: .next)
-        previous = try values.decodeIfPresent(String.self, forKey: .previous)
-        results = try values.decodeIfPresent([Results].self, forKey: .results)
-    }
-
-}
-
-public struct Results : Model {
-    let name : String?
-    let url : String?
-        
-    enum CodingKeys: String, CodingKey {
-        case name = "name"
-        case url = "url"
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
-        url = try values.decodeIfPresent(String.self, forKey: .url)
-    }
-
 }

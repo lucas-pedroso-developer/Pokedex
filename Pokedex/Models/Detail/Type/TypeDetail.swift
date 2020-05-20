@@ -11,9 +11,8 @@ import Foundation
 public struct TypeDetail : Model {
     let pokemon : [TypePokemon]?
         
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        pokemon = try values.decodeIfPresent([TypePokemon].self, forKey: .pokemon)
+    public init(pokemon: [TypePokemon]?) throws {
+        self.pokemon = pokemon
     }
 
 }

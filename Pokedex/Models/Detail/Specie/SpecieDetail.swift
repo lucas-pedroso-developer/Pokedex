@@ -17,13 +17,12 @@ public struct SpecieDetail : Model {
     let flavor_text_entries : [Flavor_text_entries]?
     
         
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        color = try values.decodeIfPresent(Color.self, forKey: .color)
-        evolution_chain = try values.decodeIfPresent(Evolution_chain.self, forKey: .evolution_chain)
-        varieties = try values.decodeIfPresent([Varieties].self, forKey: .varieties)
-        base_happiness = try values.decodeIfPresent(Int.self, forKey: .base_happiness)
-        capture_rate = try values.decodeIfPresent(Int.self, forKey: .capture_rate)
-        flavor_text_entries = try values.decodeIfPresent([Flavor_text_entries].self, forKey: .flavor_text_entries)
+    public init(color : Color?, evolution_chain : Evolution_chain?, varieties : [Varieties]?, base_happiness : Int?, capture_rate : Int?, flavor_text_entries : [Flavor_text_entries]?) {
+        self.color = color
+        self.evolution_chain = evolution_chain
+        self.varieties = varieties
+        self.base_happiness = base_happiness
+        self.capture_rate = capture_rate
+        self.flavor_text_entries = flavor_text_entries
     }
 }
