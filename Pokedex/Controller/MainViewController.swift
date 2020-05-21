@@ -24,6 +24,7 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
     var pokemonArrayFiltered = [Results?]()
     var searchController: UISearchController!
     var searchActive : Bool = false
+    var isFinalToLoad : Bool = false
             
     let service = PokedexService()
             
@@ -90,8 +91,17 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if !searchActive {
             self.hideLoadingHub()
-            if indexPath.item == self.pokemonArray.count - 4 && self.pokemonArray.count < (self.pokemons?.count)! {
-                self.getPokemons(url: (self.pokemons?.next!)!)
+            //https://pokeapi.co/api/v2/pokemon?offset=800&limit=7
+            //https://pokeapi.co/api/v2/pokemon?offset=780&limit=20
+            if !isFinalToLoad {
+                if indexPath.item == self.pokemonArray.count - 4 && self.pokemonArray.count < (self.pokemons?.count)! {
+                    if (!(self.pokemons?.next!.elementsEqual("https://pokeapi.co/api/v2/pokemon?offset=780&limit=20"))!) {
+                        self.getPokemons(url: (self.pokemons?.next!)!)
+                    } else {
+                        self.getPokemons(url: "https://pokeapi.co/api/v2/pokemon?offset=780&limit=27")
+                        self.isFinalToLoad = true
+                    }
+                }
             }
         }
     }
@@ -102,8 +112,16 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         if searchActive {
             cell.myLabel.text = self.pokemonArrayFiltered[indexPath.item]?.name
             let url = (self.pokemonArrayFiltered[indexPath.item]?.url)!
-            let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)            
-            let imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
+            let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)
+            
+            var imageUrl: URL?
+            
+            //if Int(id)! < 808 {
+                imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
+            /*} else {
+                imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!
+            }*/
+            
             cell.imageView.kf.setImage(with: imageUrl)
         } else {
             if let name = self.pokemonArray[indexPath.item]?.name {
@@ -112,7 +130,13 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
                                     
             if let url = self.pokemonArray[indexPath.item]?.url {
                 let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)                
-                let imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
+                //let imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
+                var imageUrl: URL?
+                //if Int(id)! < 808 {
+                    imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
+                /*} else {
+                    imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!
+                }*/
                 cell.imageView.kf.setImage(with: imageUrl)
             }
         }
@@ -161,6 +185,7 @@ extension MainViewController: UISearchBarDelegate {
         
         if !searchBar.text!.isEmpty {
             self.searchActive = true
+            self.isFinalToLoad = true
             
             for item in self.pokemonArray {
                 if let name = item?.name!.lowercased() {
@@ -177,6 +202,7 @@ extension MainViewController: UISearchBarDelegate {
             
         } else {
             self.searchActive = false
+            self.isFinalToLoad = false
         }
         
         self.collectionView.reloadData()

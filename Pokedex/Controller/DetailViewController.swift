@@ -277,9 +277,18 @@ class DetailViewController: UIViewController {
     }
     
     private func setPokemonImage() {
-        let url = URL(string: "\(Constants.IMAGE_API_URL)\(String(format: "%03d", id)).png")!
-        self.pokemonImageView.kf.setImage(with: url)
-                
+        //a api pula do 807 para 10001, verificar porque isso acontece
+        //if id < 808 {
+            if let url = URL(string: "\(Constants.IMAGE_API_URL)\(String(format: "%03d", id)).png") {
+                    self.pokemonImageView.kf.setImage(with: url)
+            }
+        /*} else {
+            
+            if let url = URL(string: (self.pokemon?.sprites?.front_default)!) {
+                self.pokemonImageView.kf.setImage(with: url)
+            }
+        }*/
+        
         var spritesUrlArray: [KingfisherSource] = []
         
         if let front_default = self.pokemon?.sprites?.front_default {
