@@ -19,6 +19,5 @@ extension UIViewController {
         DispatchQueue.main.async {
             self.present(alert, animated: true)
         }
-    }
-    
+    }    
 }

@@ -194,6 +194,14 @@ extension MainViewController: UISearchBarDelegate {
                         self.pokemonArrayFiltered.append(item)
                     }
                 }
+                if let idToSearch = Int(searchBar.text!) {
+                    if let url = item?.url!.lowercased() {
+                        let id = Int(url.split(separator: "/").last!)
+                        if id == idToSearch {
+                            self.pokemonArrayFiltered.append(item)
+                        }
+                    }
+                }
             }
                 
             if (searchBar.text!.isEmpty) {
