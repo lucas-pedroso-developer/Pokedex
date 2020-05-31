@@ -91,8 +91,6 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if !searchActive {
             self.hideLoadingHub()
-            //https://pokeapi.co/api/v2/pokemon?offset=800&limit=7
-            //https://pokeapi.co/api/v2/pokemon?offset=780&limit=20
             if !isFinalToLoad {
                 if indexPath.item == self.pokemonArray.count - 4 && self.pokemonArray.count < (self.pokemons?.count)! {
                     if (!(self.pokemons?.next!.elementsEqual("https://pokeapi.co/api/v2/pokemon?offset=780&limit=20"))!) {
@@ -113,30 +111,15 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.myLabel.text = self.pokemonArrayFiltered[indexPath.item]?.name
             let url = (self.pokemonArrayFiltered[indexPath.item]?.url)!
             let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)
-            
-            var imageUrl: URL?
-            
-            //if Int(id)! < 808 {
-                imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
-            /*} else {
-                imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!
-            }*/
-            
+            var imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
             cell.imageView.kf.setImage(with: imageUrl)
         } else {
             if let name = self.pokemonArray[indexPath.item]?.name {
                 cell.myLabel.text = name
             }
-                                    
             if let url = self.pokemonArray[indexPath.item]?.url {
-                let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)                
-                //let imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
-                var imageUrl: URL?
-                //if Int(id)! < 808 {
-                    imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
-                /*} else {
-                    imageUrl = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!
-                }*/
+                let id = String(format: "%03d", Int(url.split(separator: "/").last!)!)
+                var imageUrl = URL(string: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/\(id).png")!
                 cell.imageView.kf.setImage(with: imageUrl)
             }
         }

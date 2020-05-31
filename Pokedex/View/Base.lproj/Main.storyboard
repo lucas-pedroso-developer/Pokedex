@@ -285,9 +285,47 @@
                                             <constraint firstItem="Vm4-i9-Onf" firstAttribute="leading" secondItem="FOO-p2-awM" secondAttribute="leading" id="uQx-gF-t3t"/>
                                         </constraints>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fo0-Fc-WnY" userLabel="StatusView">
-                                        <rect key="frame" x="435.5" y="95" width="304" height="238.5"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fo0-Fc-WnY" userLabel="StatusView">
+                                        <rect key="frame" x="35.5" y="95" width="304" height="238.5"/>
                                         <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Erj-Dg-iJY">
+                                                <rect key="frame" x="129.5" y="8" width="174.5" height="141"/>
+                                                <subviews>
+                                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="uaO-8F-1vo">
+                                                        <rect key="frame" x="4" y="11" width="162.5" height="2"/>
+                                                    </progressView>
+                                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Xc9-ds-YyI">
+                                                        <rect key="frame" x="4" y="34.5" width="162.5" height="2"/>
+                                                    </progressView>
+                                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9dR-Ae-1M2">
+                                                        <rect key="frame" x="4" y="58" width="162.5" height="2"/>
+                                                    </progressView>
+                                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9Fg-9W-SKo">
+                                                        <rect key="frame" x="4.5" y="81.5" width="161.5" height="2"/>
+                                                    </progressView>
+                                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gJo-gJ-HVR">
+                                                        <rect key="frame" x="4.5" y="105" width="161.5" height="2"/>
+                                                    </progressView>
+                                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="F08-DI-RtM">
+                                                        <rect key="frame" x="4.5" y="128.5" width="161.5" height="2"/>
+                                                    </progressView>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="Xc9-ds-YyI" firstAttribute="width" secondItem="uaO-8F-1vo" secondAttribute="width" id="Ay6-wT-457"/>
+                                                    <constraint firstItem="9Fg-9W-SKo" firstAttribute="width" secondItem="9dR-Ae-1M2" secondAttribute="width" multiplier="0.996678" id="EwN-TY-ws5"/>
+                                                    <constraint firstItem="Xc9-ds-YyI" firstAttribute="centerX" secondItem="uaO-8F-1vo" secondAttribute="centerX" id="FyW-m1-PWw"/>
+                                                    <constraint firstItem="gJo-gJ-HVR" firstAttribute="centerX" secondItem="9Fg-9W-SKo" secondAttribute="centerX" id="Jgb-3N-FPn"/>
+                                                    <constraint firstAttribute="trailing" secondItem="uaO-8F-1vo" secondAttribute="trailing" constant="8" id="QkP-f2-RPf"/>
+                                                    <constraint firstItem="gJo-gJ-HVR" firstAttribute="width" secondItem="9Fg-9W-SKo" secondAttribute="width" id="WCz-73-bvl"/>
+                                                    <constraint firstItem="F08-DI-RtM" firstAttribute="width" secondItem="gJo-gJ-HVR" secondAttribute="width" id="der-or-EC0"/>
+                                                    <constraint firstItem="9Fg-9W-SKo" firstAttribute="centerX" secondItem="9dR-Ae-1M2" secondAttribute="centerX" id="fvf-P2-v23"/>
+                                                    <constraint firstItem="uaO-8F-1vo" firstAttribute="leading" secondItem="Erj-Dg-iJY" secondAttribute="leading" constant="4" id="g9P-gB-K0E"/>
+                                                    <constraint firstItem="F08-DI-RtM" firstAttribute="centerX" secondItem="gJo-gJ-HVR" secondAttribute="centerX" id="gZl-dC-1SC"/>
+                                                    <constraint firstItem="9dR-Ae-1M2" firstAttribute="centerX" secondItem="Xc9-ds-YyI" secondAttribute="centerX" id="y3R-H6-7Ka"/>
+                                                    <constraint firstItem="9dR-Ae-1M2" firstAttribute="width" secondItem="Xc9-ds-YyI" secondAttribute="width" id="zBw-Tt-btk"/>
+                                                </constraints>
+                                            </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="LoV-l8-2Zv" userLabel="Label Stack View">
                                                 <rect key="frame" x="0.0" y="8" width="91.5" height="141"/>
                                                 <subviews>
@@ -441,19 +479,29 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="LoV-l8-2Zv" firstAttribute="top" secondItem="fo0-Fc-WnY" secondAttribute="top" constant="8" id="4xt-aI-fND"/>
+                                            <constraint firstItem="uaO-8F-1vo" firstAttribute="centerY" secondItem="PzG-9K-a0n" secondAttribute="centerY" id="5WN-d8-VHS"/>
                                             <constraint firstItem="LoV-l8-2Zv" firstAttribute="width" secondItem="fo0-Fc-WnY" secondAttribute="width" multiplier="0.3" id="6TH-qv-sgA"/>
                                             <constraint firstItem="pve-TB-bna" firstAttribute="centerX" secondItem="fo0-Fc-WnY" secondAttribute="centerX" id="8gZ-d4-KgK"/>
+                                            <constraint firstItem="F08-DI-RtM" firstAttribute="centerY" secondItem="i2u-sW-81s" secondAttribute="centerY" id="Abk-XD-nwo"/>
                                             <constraint firstItem="p5q-t8-q6W" firstAttribute="width" secondItem="fo0-Fc-WnY" secondAttribute="width" multiplier="0.1" id="BDP-sf-WUx"/>
                                             <constraint firstItem="p5q-t8-q6W" firstAttribute="leading" secondItem="LoV-l8-2Zv" secondAttribute="trailing" id="CXn-5G-ecH"/>
+                                            <constraint firstItem="Erj-Dg-iJY" firstAttribute="height" secondItem="LoV-l8-2Zv" secondAttribute="height" id="GFw-S3-vD7"/>
+                                            <constraint firstAttribute="trailing" secondItem="Erj-Dg-iJY" secondAttribute="trailing" id="Hv2-Fr-vmG"/>
                                             <constraint firstItem="LoV-l8-2Zv" firstAttribute="leading" secondItem="fo0-Fc-WnY" secondAttribute="leading" id="IG3-Yf-eOD"/>
                                             <constraint firstItem="p5q-t8-q6W" firstAttribute="centerY" secondItem="LoV-l8-2Zv" secondAttribute="centerY" id="OXz-Zn-DRA"/>
                                             <constraint firstAttribute="bottom" secondItem="pve-TB-bna" secondAttribute="bottom" constant="10" id="XqJ-ow-Y5s"/>
+                                            <constraint firstItem="9Fg-9W-SKo" firstAttribute="centerY" secondItem="8WX-gX-keh" secondAttribute="centerY" id="XsK-ri-4gw"/>
+                                            <constraint firstItem="gJo-gJ-HVR" firstAttribute="centerY" secondItem="0lf-Jn-hkr" secondAttribute="centerY" id="d7w-9v-e0Q"/>
+                                            <constraint firstItem="9dR-Ae-1M2" firstAttribute="centerY" secondItem="rFn-K4-DrB" secondAttribute="centerY" id="lnj-Us-Ut6"/>
+                                            <constraint firstItem="Erj-Dg-iJY" firstAttribute="centerY" secondItem="LoV-l8-2Zv" secondAttribute="centerY" id="raz-cW-88I"/>
                                             <constraint firstItem="pve-TB-bna" firstAttribute="width" secondItem="fo0-Fc-WnY" secondAttribute="width" id="sTl-M2-W6M"/>
+                                            <constraint firstItem="Erj-Dg-iJY" firstAttribute="leading" secondItem="p5q-t8-q6W" secondAttribute="trailing" constant="8" id="u3s-XM-oX1"/>
                                             <constraint firstItem="p5q-t8-q6W" firstAttribute="height" secondItem="LoV-l8-2Zv" secondAttribute="height" id="wfq-cj-5qQ"/>
+                                            <constraint firstItem="Xc9-ds-YyI" firstAttribute="centerY" secondItem="0rQ-iK-kgd" secondAttribute="centerY" id="y83-ZR-Cg4"/>
                                         </constraints>
                                     </view>
-                                    <view hidden="YES" autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-Bw-mfb" userLabel="EvolutionView">
-                                        <rect key="frame" x="35.5" y="95" width="304" height="238.5"/>
+                                    <view hidden="YES" autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-Bw-mfb" userLabel="EvolutionView">
+                                        <rect key="frame" x="435.5" y="95" width="304" height="238.5"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hI6-TW-vzJ">
                                                 <rect key="frame" x="0.0" y="2.5" width="304" height="233.5"/>
@@ -705,16 +753,19 @@
                         <outlet property="abilityModalDescriptionTextView" destination="Jxp-Xp-JAW" id="NOu-3L-1cQ"/>
                         <outlet property="abilityModalNameLabel" destination="6nY-9h-JWP" id="EZc-fZ-tvp"/>
                         <outlet property="atackLabel" destination="0rQ-iK-kgd" id="Ups-PA-SRs"/>
+                        <outlet property="atackProgress" destination="Xc9-ds-YyI" id="2wZ-FR-O9c"/>
                         <outlet property="backNavBarButton" destination="x8Y-nZ-8NC" id="6lV-da-iZH"/>
                         <outlet property="dataDescriptionLabel" destination="Lm3-Kq-QRx" id="OJs-N5-rNP"/>
                         <outlet property="dataView" destination="FOO-p2-awM" id="AFd-Lu-OKj"/>
                         <outlet property="defenseLabel" destination="rFn-K4-DrB" id="pgY-YD-MTt"/>
+                        <outlet property="defenseProgress" destination="9dR-Ae-1M2" id="ACf-7d-Ucv"/>
                         <outlet property="descriptionLabel" destination="Yad-f5-B6V" id="R6c-mz-8oQ"/>
                         <outlet property="evolutionCollectionView" destination="hI6-TW-vzJ" id="ajj-Hb-Mr9"/>
                         <outlet property="evolutionView" destination="Ifb-Bw-mfb" id="zow-by-Dkh"/>
                         <outlet property="gifButton" destination="h3Y-qf-baK" id="D1q-wt-1CL"/>
                         <outlet property="heightLabel" destination="QWI-et-PT3" id="0wx-A3-GNF"/>
                         <outlet property="hpLabel" destination="PzG-9K-a0n" id="YGq-4M-k9v"/>
+                        <outlet property="hpProgress" destination="uaO-8F-1vo" id="AKG-3R-ra4"/>
                         <outlet property="imageSlide" destination="zlU-4h-bAe" id="73Z-nO-Ftp"/>
                         <outlet property="modalView" destination="VbO-cz-UxO" id="qyE-Wy-ryd"/>
                         <outlet property="navbar" destination="rfD-2i-UEs" id="1zq-nV-Ta3"/>
@@ -727,8 +778,11 @@
                         <outlet property="segment" destination="KTe-kS-bz6" id="17f-Sa-hKc"/>
                         <outlet property="shadowView" destination="T3M-1F-rhW" id="Gjn-TN-kVn"/>
                         <outlet property="specialAtackLabel" destination="8WX-gX-keh" id="md4-4B-wfF"/>
+                        <outlet property="specialAtackProgress" destination="9Fg-9W-SKo" id="NZ6-Jd-l8Z"/>
                         <outlet property="specialDefenseLabel" destination="0lf-Jn-hkr" id="pCq-jR-k4A"/>
+                        <outlet property="specialDefenseProgress" destination="gJo-gJ-HVR" id="8rN-y3-saO"/>
                         <outlet property="speedLabel" destination="i2u-sW-81s" id="Juy-nj-khz"/>
+                        <outlet property="speedProgress" destination="F08-DI-RtM" id="jH6-JW-4dm"/>
                         <outlet property="spritesLabel" destination="cB8-G3-l8e" id="qDp-o7-oi7"/>
                         <outlet property="statusView" destination="fo0-Fc-WnY" id="Omw-6c-EqP"/>
                         <outlet property="typeCollectionView" destination="0U9-6O-iWF" id="NU5-G1-IIB"/>

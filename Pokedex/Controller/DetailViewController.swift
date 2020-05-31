@@ -85,6 +85,13 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var spritesLabel: UILabel!
     @IBOutlet weak var gifButton: UIBarButtonItem!
     
+    @IBOutlet weak var hpProgress: UIProgressView!
+    @IBOutlet weak var atackProgress: UIProgressView!
+    @IBOutlet weak var defenseProgress: UIProgressView!
+    @IBOutlet weak var specialAtackProgress: UIProgressView!
+    @IBOutlet weak var specialDefenseProgress: UIProgressView!
+    @IBOutlet weak var speedProgress: UIProgressView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -277,18 +284,10 @@ class DetailViewController: UIViewController {
     }
     
     private func setPokemonImage() {
-        //a api pula do 807 para 10001, verificar porque isso acontece
-        //if id < 808 {
-            if let url = URL(string: "\(Constants.IMAGE_API_URL)\(String(format: "%03d", id)).png") {
-                    self.pokemonImageView.kf.setImage(with: url)
-            }
-        /*} else {
-            
-            if let url = URL(string: (self.pokemon?.sprites?.front_default)!) {
+        if let url = URL(string: "\(Constants.IMAGE_API_URL)\(String(format: "%03d", id)).png") {
                 self.pokemonImageView.kf.setImage(with: url)
-            }
-        }*/
-        
+        }
+                
         var spritesUrlArray: [KingfisherSource] = []
         
         if let front_default = self.pokemon?.sprites?.front_default {
@@ -344,7 +343,7 @@ class DetailViewController: UIViewController {
             self.weightLabel.text = "\(weight)"
         }
     }
-    
+            
     private func setPokemonStatus() {
         let stats = self.pokemon?.stats
         for stat in stats! {
@@ -353,26 +352,32 @@ class DetailViewController: UIViewController {
             if (name?.elementsEqual("hp"))! {
                 if let base_stat = stat.base_stat {
                     self.hpLabel.text = "\(base_stat)"
+                    self.hpProgress.setProgress(((self.hpLabel.text?.floatValue())!/500), animated: false)
                 }
             } else if (name?.elementsEqual("defense"))! {
                 if let base_stat = stat.base_stat {
                     self.atackLabel.text = "\(base_stat)"
+                    self.atackProgress.setProgress(((self.atackLabel.text?.floatValue())!/500), animated: false)
                 }
             } else if (name?.elementsEqual("attack"))! {
                 if let base_stat = stat.base_stat {
                     self.defenseLabel.text = "\(base_stat)"
+                    self.defenseProgress.setProgress(((self.defenseLabel.text?.floatValue())!/500), animated: false)
                 }
             } else if (name?.elementsEqual("special-attack"))! {
                 if let base_stat = stat.base_stat {
                     self.specialAtackLabel.text = "\(base_stat)"
+                    self.specialAtackProgress.setProgress(((self.specialAtackLabel.text?.floatValue())!/500), animated: false)
                 }
             } else if (name?.elementsEqual("special-defense"))! {
                 if let base_stat = stat.base_stat {
                     self.specialDefenseLabel.text = "\(base_stat)"
+                    self.specialDefenseProgress.setProgress(((self.specialDefenseLabel.text?.floatValue())!/500), animated: false)
                 }
             } else if (name?.elementsEqual("speed"))! {
                 if let base_stat = stat.base_stat {
                     self.speedLabel.text = "\(base_stat)"
+                    self.speedProgress.setProgress(((self.speedLabel.text?.floatValue())!/500), animated: false)
                 }
             } else {
                 self.showAlert(title: Messages.ERROR_TITLE, message: Messages.GENERIC_ERROR)
@@ -462,6 +467,12 @@ class DetailViewController: UIViewController {
     
 }
 
+extension String {
+    func floatValue() -> Float? {
+        return Float(self)
+    }
+}
+
 class TypeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var typeButton: UIButton!
 }
@@ -508,6 +519,12 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
             self.dataDescriptionLabel.backgroundColor = self.pokemonMainColor
             self.spritesLabel.backgroundColor = self.pokemonMainColor
             self.gifButton.tintColor = self.pokemonMainColor
+            self.hpProgress.tintColor = self.pokemonMainColor
+            self.atackProgress.tintColor = self.pokemonMainColor
+            self.defenseProgress.tintColor = self.pokemonMainColor
+            self.specialAtackProgress.tintColor = self.pokemonMainColor
+            self.specialDefenseProgress.tintColor = self.pokemonMainColor
+            self.speedProgress.tintColor = self.pokemonMainColor
             return cell
         } else if collectionView.tag == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  "evolutionCell", for: indexPath as IndexPath) as! EvolutionCollectionViewCell
