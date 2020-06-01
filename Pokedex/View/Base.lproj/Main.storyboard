@@ -310,7 +310,7 @@
                                                         <rect key="frame" x="4.5" y="128.5" width="161.5" height="2"/>
                                                     </progressView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="Xc9-ds-YyI" firstAttribute="width" secondItem="uaO-8F-1vo" secondAttribute="width" id="Ay6-wT-457"/>
                                                     <constraint firstItem="9Fg-9W-SKo" firstAttribute="width" secondItem="9dR-Ae-1M2" secondAttribute="width" multiplier="0.996678" id="EwN-TY-ws5"/>
